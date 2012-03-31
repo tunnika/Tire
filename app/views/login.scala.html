@@ -1,0 +1,32 @@
+@(form: Form[Login])
+
+
+@import helper.twitterBootstrap._
+
+@layout("Norpneu login") {
+    
+@helper.form(routes.Application.authenticate) {
+
+            <h1>Sign in</h1>
+            
+            @if(form.hasGlobalErrors) { 
+                <div class="alert alert-error">
+                    @form.globalError.message
+                </div>
+            }
+            
+
+            @if(flash.contains("success")) {
+                <div class="alert alert-success">
+                    @flash.get("success")
+                </div>
+            }
+           	@helper.inputText(field=form("email"),args='_label -> "Email", 'required -> true)
+           	@helper.inputPassword(field=form("password"),args='_label -> "Password", 'required -> true)
+
+
+            <button class="btn btn-primary" type="submit">Submit</button>
+
+        }
+    
+}

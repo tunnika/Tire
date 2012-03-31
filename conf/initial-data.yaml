@@ -1,0 +1,35 @@
+
+# Users
+
+users:
+
+    - !!models.User
+        email:      martins.carlos@gmail.com
+        name:       Carlos Martins
+        password:   secret
+        active:     true
+        powerUser:  false
+        company:    cenas
+    
+    - !!models.User
+        email:      kimile@gmail.com
+        name:       Joaquim Rego
+        password:   secret
+        active:     true
+        powerUser:  false
+        company:    cenas
+    
+    - !!models.User
+        email:      ruben_joane@hotmail.com
+        name:       Ruben Leite
+        password:   secret
+        active:     true
+        powerUser:  true
+        company:    Norpneu
+
+    - !!models.User
+        email:      tunnika@gmail.com
+        name:       Paula Fernandes
+        password:   secret
+        active:     true
+        powerUser:  false
