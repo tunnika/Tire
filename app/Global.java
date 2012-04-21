@@ -1,17 +1,16 @@
-import play.*;
-import play.libs.*;
-import sun.security.provider.MD5;
-import util.GlobalVars;
-
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
-import com.avaje.ebean.*;
+import models.User;
+import play.Application;
+import play.GlobalSettings;
+import play.libs.Yaml;
+import util.GlobalVars;
 
-import models.*;
+import com.avaje.ebean.Ebean;
 
 public class Global extends GlobalSettings {
     
@@ -26,7 +25,8 @@ public class Global extends GlobalSettings {
 				public static void insert(Application app) {
             if(Ebean.find(User.class).findRowCount() == 0) {
                 
-                Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yaml");
+                @SuppressWarnings("unchecked")
+				Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yaml");
 
                 List<Object> usersList = all.get("users");
                 for(Object o : usersList){
