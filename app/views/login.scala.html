@@ -3,10 +3,11 @@
 
 @import helper.twitterBootstrap._
 
-@layout("Norpneu login") {
+@layout("Norpneu login"){<br/>}{
     
 @helper.form(routes.Application.authenticate) {
-
+<div style="row">
+<div style="span12">
             <h1>Sign in</h1>
             
             @if(form.hasGlobalErrors) { 
@@ -28,5 +29,6 @@
             <button class="btn btn-primary" type="submit">Submit</button>
 
         }
-    
-}
+</div>
+</div>    
+}{<br/>}

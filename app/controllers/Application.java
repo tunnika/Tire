@@ -1,16 +1,10 @@
 package controllers;
 
-import exceptions.UnableToAuthenticateException;
 import models.Login;
-import models.User;
-import play.*;
 import play.data.Form;
-import play.mvc.*;
-
-import views.html.*;
-import play.data.validation.Constraints;
-
-import java.util.Map;
+import play.mvc.Controller;
+import play.mvc.Result;
+import views.html.login;
 
 public class Application extends Controller {
 

@@ -1,11 +1,10 @@
 package controllers;
 
 import models.User;
-import play.*;
-import play.mvc.*;
-import play.data.*;
-
-import views.html.*;
+import play.mvc.Controller;
+import play.mvc.Result;
+import play.mvc.Security;
+import views.html.dashboard;
 
 @Security.Authenticated(Secured.class)
 public class Dashboard extends Controller {
