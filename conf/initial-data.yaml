@@ -33,3 +33,22 @@ users:
         password:   secret
         active:     true
         powerUser:  false
+
+brands:
+    - !!models.norpneu.Brand
+        name:       Good Year
+
+    - !!models.norpneu.Brand
+        name:       Yokohama
+       
+    - !!models.norpneu.Brand
+        name:       Pace         
+           
+    - !!models.norpneu.Brand
+        name:       Michellin         
+           
+    - !!models.norpneu.Brand
+        name:       Pirelli         
+           
+    - !!models.norpneu.Brand
+        name:       Bridgestone         
