@@ -1,0 +1,17 @@
+a.brand {
+  float: left;
+  display: block;
+  font-size: 30px;
+  color: #000000;
+}
+
+p.headerChallenge
+{
+  line-height: 27px;
+  font-size: 18px;
+  margin: 0;
+  font-family: inherit;
+  font-weight: bold;
+  color: inherit;
+  text-rendering: optimizelegibility;
+}

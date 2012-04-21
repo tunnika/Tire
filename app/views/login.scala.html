@@ -4,15 +4,22 @@
 
 @implicitFieldConstructor = @{ FieldConstructor(helper.bootst.render) }
 
-@layout("Norpneu login"){<br/>}{
+@layout("Norpneu login"){
+  <div class="well">
+		<a class="brand" href="#">Norpneu</a>
+		<p class="pull-right headerChallenge">Quer vender pneus a preços exclusivos?&nbsp;&nbsp;<button class="btn btn-primary" type="submit">Criar conta</button></p>
+   </div>
+}{
     
 @helper.form(routes.Application.authenticate) {
 <div style="row">
-<div style="span12">
+	<div style="span12">
+		<div class="hero-unit">
             <h1>Sign in</h1>
             
             @if(form.hasGlobalErrors) { 
                 <div class="alert alert-error">
+            	<a class="close" data-dismiss="alert">×</a>
                     @form.globalError.message
                 </div>
             }
@@ -20,6 +27,7 @@
 
             @if(flash.contains("success")) {
                 <div class="alert alert-success">
+            	<a class="close" data-dismiss="alert">×</a>
                     @flash.get("success")
                 </div>
             }
@@ -30,6 +38,33 @@
             <button class="btn btn-primary" type="submit">Submit</button>
 
         }
+       </div>
+            <hr class="soften">
+            <div class="marketing">
+  <h1>As melhores marcas aos melhores preços.</h1>
+  <p class="marketing-byline"><a href="#">Ver mais sobre o Norpneu online  ></a></p>
+  <div class="row">
+    <div class="span4">
+      <img class="bs-icon" src="assets/img/glyphicons/glyphicons_042_group.png">
+      <h2>Built for and by nerds</h2>
+      
+    </div>
+    <div class="span4">
+      <img class="bs-icon" src="assets/img/glyphicons/glyphicons_079_podium.png">
+      <h2>For all skill levels</h2>
+
+    </div>
+    <div class="span4">
+      <img class="bs-icon" src="assets/img/glyphicons/glyphicons_163_iphone.png">
+      <h2>Cross-everything</h2>
+      
+    </div>
+  </div><!--/row-->
+  
+  <hr class="soften">
+
+
 </div>
+    </div>
 </div>    
 }{<br/>}
