@@ -1,0 +1,35 @@
+@(form: Form[User])
+
+@import helper.FieldConstructor
+@implicitFieldConstructor = @{ FieldConstructor(helper.bootst.render) }
+
+@layout("Registar no Norpneu"){
+  @staticcontent("headerLogin")
+}{
+  
+@helper.form(routes.Application.registerAction) {
+<div style="row">
+	<div style="span12">
+		<div class="well">
+            <h2>Registar no Norpneu</h2>
+
+           	@helper.inputText(field=form("email"),args='_label -> "Email", 'required -> true)
+           	@helper.inputText(field=form("name"),args='_label -> "Nome", 'required -> true)
+			@helper.inputText(field=form("company"),args='_label -> "Representação", 'required -> true)
+			@helper.inputText(field=form("phoneNumber"),args='_label -> "Contacto telefónico", 'required -> true)
+			@helper.inputText(field=form("street"),args='_label -> "Morada")
+
+            @if(form.hasGlobalErrors) { 
+                <div class="alert alert-error">
+            	<a class="close" data-dismiss="alert">×</a>
+                    @form.globalError.message
+                </div>
+            }
+
+            <button class="btn btn-primary" type="submit">Submit</button> 
+        
+       </div>
+}
+}{
+   @staticcontent("contactos")
+}

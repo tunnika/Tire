@@ -1,0 +1,20 @@
+@** TODO: procurar solução mais elegante para invocação de pedaços de código estatico **@
+@(section:String)
+
+@if(section.matches("contactos")){
+  @contactos()
+} 
+@if(section.matches("headerLogin")) {
+  @headerLogin()
+}
+
+@contactos() = {
+  <h3>contactos</h3>
+}
+
+@headerLogin() = {
+<div class="well">
+	<a class="brand" href="#">Norpneu</a>
+	<p class="pull-right headerChallenge">Quer vender pneus a preços exclusivos?&nbsp;&nbsp;<a class="btn btn-primary" href="@routes.Application.registerForward">Criar conta</a></p>
+</div>
+}

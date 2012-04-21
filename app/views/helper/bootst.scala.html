@@ -6,11 +6,11 @@
 <div class="control-group @elements.args.get('_class) @if(elements.hasErrors) {error}"
         id="@elements.args.get('_id).getOrElse(elements.id + "_field")">
     <label class="control-label" for="@elements.id">@elements.label(elements.lang)
-        <span class="star class">@if(elements.args.get('required)){*}</span>
+        <span class="star-required">@if(elements.args.get('required)){*}</span>
     </label>
     <div class="controls">
         @elements.input
-        <span class="help-inline">@elements.infos(elements.lang).mkString(", ")</span>
-        <!--span class="help-block">@elements.errors(elements.lang).mkString(", ")</span-->
+        <!--<span class="help-inline">@elements.infos(elements.lang).mkString(", ")</span>-->
+        <span class="help-block">@elements.errors(elements.lang).mkString(", ")</span>
     </div>
 </div>
