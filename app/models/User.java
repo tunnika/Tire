@@ -17,6 +17,7 @@ import exceptions.UnableToAuthenticateException;
 
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
+import sun.security.rsa.RSASignature.MD5withRSA;
 import util.GlobalVars;
 
 
@@ -58,7 +59,7 @@ public class User extends Model {
 	@Constraints.Required
 	@NotNull
 	@Length(min=6)
-	public String password;
+	public String password=String.valueOf(System.nanoTime());
 	
 	//TODO: DEFAULT VALUE false
 	@Constraints.Required

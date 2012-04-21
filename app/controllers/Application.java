@@ -36,6 +36,7 @@ public class Application extends Controller {
     
     public static Result registerAction(){
     	Form<User> userForm = form(User.class).bindFromRequest();
+    	//userForm.get().password = "1234567899876543211234567";
         if (userForm.hasErrors()) {
             return badRequest(register.render(userForm));
         } else {

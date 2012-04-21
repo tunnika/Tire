@@ -69,16 +69,16 @@ public class Tyre extends Model {
 		// TODO Auto-generated constructor stub
 	}
 	
-	@Transactional(isolation=TxIsolation.READ_COMMITED)
-	public long getStockUnitsAvailable(){
-		return stockUnitsAvailable;
-	}
-	
-	@Transactional(isolation=TxIsolation.READ_COMMITED)
-	public void decreaseStock(long units){
-		Tyre tyre = finder.byId(id);
-		tyre.stockUnitsAvailable = getStockUnitsAvailable() - units;
-		tyre.save();
-	}
+//	@Transactional(isolation=TxIsolation.READ_COMMITED)
+//	public long getStockUnitsAvailable(){
+//		return stockUnitsAvailable;
+//	}
+//	
+//	@Transactional(isolation=TxIsolation.READ_COMMITED)
+//	public void decreaseStock(long units){
+//		Tyre tyre = finder.byId(id);
+//		tyre.stockUnitsAvailable = getStockUnitsAvailable() - units;
+//		tyre.save();
+//	}
 
 }
