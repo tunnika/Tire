@@ -9,6 +9,7 @@ import views.html.login;
 public class Application extends Controller {
 
     public static Result login() {
+    	System.out.println(request().acceptLanguages());
         return ok(login.render(form(Login.class)));
     }
 
