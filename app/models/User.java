@@ -4,6 +4,7 @@ package models;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -28,6 +29,7 @@ public class User extends Model {
   
   
 	@Id
+	@Constraints.Email
 	public String email;
 	
 	@Constraints.Required
@@ -37,6 +39,21 @@ public class User extends Model {
 	
 	@Length(max=30)
 	public String company;
+	
+	@Length(max=30)
+	@Constraints.Required
+	public String phoneNumber;
+	
+	@Length(max=50)
+	public String street;
+	
+	@Length(max=8)
+	public String postalCode;
+	
+	@Length(max=30)
+	public String city;
+	
+	public String gpsLatPos;
 	
 	@Constraints.Required
 	@NotNull
@@ -52,6 +69,14 @@ public class User extends Model {
 	@Constraints.Required
 	@NotNull
 	public boolean powerUser=false;
+	
+	public Timestamp registryDate;
+	
+	public Timestamp activeDate;
+	
+	public Timestamp lastStatusDate;
+	
+	public String comments;
 	
 //-- Queries
   
