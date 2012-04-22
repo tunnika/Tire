@@ -5,11 +5,18 @@ import com.avaje.ebean.InvalidValue;
 
 import models.*;
 import play.data.Form;
+import play.data.validation.ValidationError;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
 
+<<<<<<< HEAD
+=======
+import javax.persistence.PersistenceException;
+
+
+>>>>>>> Catch persistence exceptions on user registration. A proper handling with known errors being properly presented to the user is still required
 public class Application extends Controller {
 
     public static Result login() {
@@ -43,8 +50,16 @@ public class Application extends Controller {
             return badRequest(register.render(userForm));
         } else {
             User u = userForm.get();
-            u.save();
-        	flash("success", Messages.get("register.success", u.email));
+            try{
+                u.save();
+            }catch(PersistenceException pe){
+                //TODO: how to handle persistence exceptions properly?
+                // Found error when filling in a duplicate email
+                ValidationError ve = new ValidationError("", pe.getMessage(), null);
+                userForm.reject(ve);
+                return badRequest(register.render(userForm));
+            }
+        	flash("success", Messages.get("registration.pending.approval", u.email));
         	return redirect(routes.Application.login());
         }
     }
