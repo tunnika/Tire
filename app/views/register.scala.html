@@ -9,14 +9,14 @@
   
 @helper.form(routes.Application.registerAction) {
 <div style="row-fluid">
-	<div>
+	<div class="formContainer">
 		<div class="login-well">
             <h3>Registar no Norpneu</h3>
-
-           	@helper.inputText(field=form("email"),args='_label -> "Email", 'required -> true)
-           	@helper.inputText(field=form("name"),args='_label -> "Nome", 'required -> true)
-			@helper.inputText(field=form("company"),args='_label -> "Representação", 'required -> true)
-			@helper.inputText(field=form("phoneNumber"),args='_label -> "Contacto telefónico", 'required -> true)
+			<p class="formRequiredInstuctions"><small>Campos com <span class="star-required">*</span> são obrigatórios</small></p>
+           	@helper.inputText(field=form("email"),args='_label -> "Utilizador (Email)", 'required -> true, 'placeholder->"ex: ana.reis@gmail.com")
+           	@helper.inputText(field=form("name"),args='_label -> "Nome", 'required -> true, 'placeholder->"Primeiro e último ex: Ana Reis")
+			@helper.inputText(field=form("company"),args='_label -> "Representação", 'required -> true, 'placeholder->"Empresa que representa")
+			@helper.inputText(field=form("phoneNumber"),args='_label -> "Contacto telefónico", 'required -> true,'placeholder->"Telefone fixo ou telemóvel")
 			@helper.inputText(field=form("street"),args='_label -> "Morada")
 
             @if(form.hasGlobalErrors) { 
