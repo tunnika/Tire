@@ -1,2 +1,2 @@
-register.success=O seu registo está pendente para verificação. Por favor aguarde uma notificação no email {0} com a confirmação do acesso ao serviço.
+registration.pending.approval = Pedido registado. Assim que a sua conta estiver autorizada, receberá um email em {0} com as instruções para a finilização do registo.
 error.required=Campo obrigatório
