@@ -1,24 +1,20 @@
 package models;
 
 
+import com.avaje.ebean.validation.Length;
+import com.avaje.ebean.validation.NotNull;
+import exceptions.UnableToAuthenticateException;
+import play.data.validation.Constraints;
+import play.db.ebean.Model;
+import util.GlobalVars;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-import com.avaje.ebean.validation.Length;
-import com.avaje.ebean.validation.NotNull;
-
-import exceptions.UnableToAuthenticateException;
-
-import play.data.validation.Constraints;
-import play.db.ebean.Model;
-import sun.security.rsa.RSASignature.MD5withRSA;
-import util.GlobalVars;
 
 
 @Entity
@@ -32,43 +28,50 @@ public class User extends Model {
 	@Id
 	@Constraints.Email
 	public String email;
-	
-	@Constraints.Required
-	@NotNull
-	@Length(min=7,max=30)
+
+    @NotNull @Length(min=7,max=30)
+    // Using only ebean validators causes Play not to validate
+    // those constraints.
+    @Constraints.Required
+    @Constraints.MinLength(value=7)
+    @Constraints.MaxLength(value=30)
 	public String name;
 	
 	@Length(max=30)
+    @Constraints.MaxLength(value=30)
 	public String company;
 	
-	@Length(max=30)
+	@NotNull @Length(max=30)
 	@Constraints.Required
+    @Constraints.MaxLength(value=30)
 	public String phoneNumber;
 	
 	@Length(max=50)
+    @Constraints.MaxLength(value=50)
 	public String street;
 	
 	@Length(max=8)
+    @Constraints.MaxLength(value=8)
 	public String postalCode;
 	
 	@Length(max=30)
+    @Constraints.MaxLength(value=30)
 	public String city;
-	
+
+
 	public String gpsLatPos;
-	
+
+    @NotNull @Length(min=6)
 	@Constraints.Required
-	@NotNull
-	@Length(min=6)
+    @Constraints.MinLength(value=6)
 	public String password=String.valueOf(System.nanoTime());
-	
-	//TODO: DEFAULT VALUE false
-	@Constraints.Required
+
 	@NotNull
+    @Constraints.Required
 	public boolean active=false;
 
-	//TODO: DEFAULT VALUE false
-	@Constraints.Required
-	@NotNull
+    @NotNull
+    @Constraints.Required
 	public boolean powerUser=false;
 	
 	public Timestamp registryDate;
