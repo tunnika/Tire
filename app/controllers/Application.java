@@ -50,6 +50,7 @@ public class Application extends Controller {
         }
     }
 =======
+
 	public static Result login() {
 		return ok(login.render(form(Login.class)));
 	}
@@ -99,4 +100,5 @@ public class Application extends Controller {
 		}
 	}
 >>>>>>> css classes added to beautify forms
+
 }
