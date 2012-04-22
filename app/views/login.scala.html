@@ -14,59 +14,62 @@
                 </div>
             }
 }{
-    
+<div style="row-fluid">
+	<div>
+		<div class="login-well">
+            <h3>Entrar no Norpneu</h3>
 @helper.form(routes.Application.authenticate) {
-<div style="row">
-	<div style="span12">
-		<div class="well">
-            <h2>Entrar no Norpneu</h2>
-
-           	@helper.inputText(field=form("email"),args='_label -> "Email", 'required -> true)
-           	@helper.inputPassword(field=form("password"),args='_label -> "Password", 'required -> true)
+           	@helper.inputText(field=form("email"),args='_label -> "Utilizador", 'required -> true)
+           	@helper.inputPassword(field=form("password"),args='_label -> "Palavra chave", 'required -> true)
             @if(form.hasGlobalErrors) { 
                 <div class="alert alert-error">
             	<a class="close" data-dismiss="alert">×</a>
                     @form.globalError.message
                 </div>
             }
-
-            <button class="btn btn-primary" type="submit">Submit</button> 
-
+            <button class="btn btn-primary" type="submit">Entrar</button>
+           	<p class="pull-right" style="padding-top:5px">
+           		<input type="checkbox" id="remember">&nbsp;&nbsp;Manter-me autenticado</input>
+           	</p>
+           	<br/>
         }
-       </div>
-            <hr class="soften">
-            <div class="marketing">
+		<span >
+           	<a href="#" style="font-size:10px">Não se lembra do seu Utilizador ou Palavra chave?</a>
+           	</span>
+       </div><!--end of login-well--> 
+	</div><!--end span12-->
+</div><!--end row-->
+<div style="row">
+  <div style="span12" >
+  <hr class="soften"/>
+  <div class="marketing">
   <h1>As melhores marcas aos melhores preços.</h1>
   <p class="marketing-byline"><a href="#">Ver mais sobre o Norpneu online  ></a></p>
   <div class="row">
     <div class="span3">
       <img class="bs-icon" src="assets/img/glyphicons/glyphicons_042_group.png">
-      <h2>Os preços mais baixos</h2>
+      <h2><small>Os preços mais baixos</small></h2>
       
     </div>
     <div class="span3">
       <img class="bs-icon" src="assets/img/glyphicons/glyphicons_079_podium.png">
-      <h2>Unicamente para revendedores</h2>
+      <h2><small>Apenas para revendedores</small></h2>
 
     </div>
     <div class="span3">
       <img class="bs-icon" src="assets/img/glyphicons/glyphicons_163_iphone.png">
-      <h2>Entregas em menos de 24h</h2>
+      <h2><small>Entregas em menos de 24h</small></h2>
       
     </div>
     <div class="span3">
       <img class="bs-icon" src="assets/img/glyphicons/glyphicons_163_iphone.png">
-      <h2>Satisfação garantida</h2>
+      <h2><small>Satisfação garantida</small></h2>
       
     </div>
   </div><!--/row-->
-  
-  <hr class="soften">
-
-
-</div>
-    </div>
-</div>    
+  </div><!--/marketing-->
+</div><!--/span12-->
+</div> <!--/row--> 
 }{
    @staticcontent("contactos")
 }

@@ -11,7 +11,7 @@
 		<style type="text/css">
 			body {
         		padding-top: 0px;
-        		padding-bottom: 40px;
+        		padding-bottom: 0px;
       		}
     	</style>
 		
@@ -24,11 +24,12 @@
     <body>
 		@header
     <div class="container">
-        @content
-      <footer>
-        @footer
-      </footer>
-
+		<div class="content">
+        	@content
+		</div>
     </div> <!-- /container -->
-    </body>
+<footer> 
+@footer
+</footer>
+</body>
 </html>

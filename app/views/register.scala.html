@@ -8,10 +8,10 @@
 }{
   
 @helper.form(routes.Application.registerAction) {
-<div style="row">
-	<div style="span12">
-		<div class="well">
-            <h2>Registar no Norpneu</h2>
+<div style="row-fluid">
+	<div>
+		<div class="login-well">
+            <h3>Registar no Norpneu</h3>
 
            	@helper.inputText(field=form("email"),args='_label -> "Email", 'required -> true)
            	@helper.inputText(field=form("name"),args='_label -> "Nome", 'required -> true)
@@ -26,7 +26,7 @@
                 </div>
             }
 
-            <button class="btn btn-primary" type="submit">Submit</button> 
+            <button class="btn btn-primary" type="submit">Registar</button> 
         
        </div>
 }
