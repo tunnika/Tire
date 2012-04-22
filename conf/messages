@@ -1,3 +1,2 @@
 register.success=O seu registo está pendente para verificação. Por favor aguarde uma notificação no email {0} com a confirmação do acesso ao serviço.
 error.required=Campo obrigatório
-constraint.required=Campo obrigatório
