@@ -48,7 +48,7 @@ public class Application extends Controller {
         } else {
             // make form complies with all the validations at the "database" level
             InvalidValue invalid = Ebean.validate(userForm.get());
-            if(!invalid.isError()){ // database constraints are valid
+            if(invalid==null){ // database constraints are valid
                 try{
                     userForm.get().save();
                     flash("success", Messages.get("registration.pending.approval", userForm.get().email));
@@ -66,6 +66,7 @@ public class Application extends Controller {
             } else {
                 // failed database validations
                 //TODO: PT?
+                //TODO: is getMessage() the way to go? it looks like it never gets populated
                 userForm.reject(invalid.getMessage());
                 return badRequest(register.render(userForm));
             }
