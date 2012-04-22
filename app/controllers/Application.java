@@ -40,6 +40,7 @@ public class Application extends Controller {
     	return ok(register.render(form(User.class)));
     }
 
+    //TODO: lots of boilerplate. Refactor!
     public static Result registerAction(){
         Form<User> userForm = form(User.class).bindFromRequest();
         if (userForm.hasErrors()) {
