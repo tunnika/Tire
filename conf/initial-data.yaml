@@ -10,6 +10,7 @@ users:
         active:     true
         powerUser:  false
         company:    cenas
+        phoneNumber: 937744118
     
     - !!models.User
         email:      kimile@gmail.com
@@ -18,6 +19,7 @@ users:
         active:     true
         powerUser:  false
         company:    cenas
+        phoneNumber: 937744117
     
     - !!models.User
         email:      ruben_joane@hotmail.com
@@ -26,6 +28,7 @@ users:
         active:     true
         powerUser:  true
         company:    Norpneu
+        phoneNumber: 937744119
 
     - !!models.User
         email:      tunnika@gmail.com
@@ -33,6 +36,7 @@ users:
         password:   secret
         active:     true
         powerUser:  false
+        phoneNumber: 937744115
 
 brands:
     - !!models.norpneu.Brand
