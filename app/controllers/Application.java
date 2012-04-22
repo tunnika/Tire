@@ -2,6 +2,7 @@ package controllers;
 
 import models.*;
 import play.data.Form;
+import play.i18n.Messages;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.*;
@@ -41,7 +42,7 @@ public class Application extends Controller {
         } else {
             User u = userForm.get();
             u.save();
-        	flash("success", "Registado com sucesso");
+        	flash("success", Messages.get("register.success", u.email));
         	return redirect(routes.Application.login());
         }
     }
