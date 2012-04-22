@@ -12,7 +12,6 @@ import views.html.*;
 
 public class Application extends Controller {
 
-<<<<<<< HEAD
     public static Result login() {
         return ok(login.render(form(Login.class)));
     }
@@ -49,7 +48,6 @@ public class Application extends Controller {
         	return redirect(routes.Application.login());
         }
     }
-=======
 
 	public static Result login() {
 		return ok(login.render(form(Login.class)));
@@ -99,6 +97,5 @@ public class Application extends Controller {
 			return badRequest(register.render(userForm));
 		}
 	}
->>>>>>> css classes added to beautify forms
 
 }
