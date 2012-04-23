@@ -39,6 +39,7 @@ public class Application extends Controller {
     public static Result registerForward(){
     	return ok(register.render(form(User.class)));
     }
+<<<<<<< HEAD
 
     //TODO: lots of boilerplate. Refactor!
     public static Result registerAction(){
@@ -72,4 +73,36 @@ public class Application extends Controller {
             }
         }
     }
+=======
+    
+    public static Result aboutForward(){
+    	return ok(about.render());
+    }
+
+	public static Result registerAction() {
+		Form<User> userForm = form(User.class).bindFromRequest();
+		// userForm.get().password = "1234567899876543211234567";
+		// userForm.get().save();
+		// TODO: Necessario enviar o email para o email registado pelo
+		// utilizador, se falhar o envio, retornar o form em erro
+		if (userForm.hasErrors()) {
+			return badRequest(register.render(userForm));
+		} else {
+			InvalidValue invalid = Ebean.validate(userForm.get());
+			if (!invalid.isError()) {
+				Ebean.save(userForm.get());
+				//KIM: flash("success", Messages.get("register.success", u.email));
+				flash("success",
+						"Pedido registado. Assim que a sua conta estiver autorizada, receberá um email em "
+								+ userForm.get().email
+								+ " com as instruções para finalização do registo.");
+				return redirect(routes.Application.login());
+			}
+			//TODO: PT?
+			userForm.reject(invalid.getMessage());
+			return badRequest(register.render(userForm));
+		}
+	}
+
+>>>>>>> Added About link
 }

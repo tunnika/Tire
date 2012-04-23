@@ -5,6 +5,9 @@
 # Home page
 GET     /                           controllers.Dashboard.index()
 
+# About
+GET 	/about						controllers.Application.aboutForward()
+
 # Authentication
 GET     /login                      controllers.Application.login()
 POST    /login                      controllers.Application.authenticate()
