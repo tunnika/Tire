@@ -1,2 +1,18 @@
-registration.pending.approval = Pedido registado. Assim que a sua conta estiver autorizada, receberá um email em {0} com as instruções para a finilização do registo.
+# --------------------#
+#    Play Default     #
+# --------------------#
 error.required=Campo obrigatório
+
+
+# --------------------#
+#   database errors   #
+# --------------------#
+db.unknown = Fomos incapazes de processar o seu pedido. Tente novamente mais tarde.
+db.constraints.failed = Erro a validar o formulário na base de dados.
+db.duplicate.pk = Já existe um registo com esta chave.
+
+# --------------------#
+#  Registration form  #
+# --------------------#
+registration.pending.approval = Pedido registado. Assim que a sua conta estiver autorizada, receberá um email em {0} com as instruções para a finilização do registo.
+registration.duplicate.email = O email {0} já foi previamente registado. Por favor forneça um outro email.
