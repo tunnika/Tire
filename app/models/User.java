@@ -27,6 +27,7 @@ public class User extends Model {
   
 	@Id
 	@Constraints.Email
+    @Constraints.Required
 	public String email;
 
     @NotNull @Length(min=7,max=30)
