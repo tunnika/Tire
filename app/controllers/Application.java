@@ -11,8 +11,6 @@ import views.html.about;
 import views.html.login;
 import views.html.register;
 
-import javax.persistence.PersistenceException;
-
 
 public class Application extends EnhancedController {
 
@@ -44,14 +42,9 @@ public class Application extends EnhancedController {
     public static Result registerAction(){
         Form<User> userForm = form(User.class).bindFromRequest();
         try {
-            handleSaveForm(userForm);
+            handleSaveForm(userForm, buildErrorMap(
+                    "DUPLICATE_PK", Messages.get("registration.duplicate.email", safePullModel(userForm).email)));
         } catch (FormValidationException e) {
-            return badRequest(register.render(userForm));
-        } catch (PersistenceException pe){
-            // add global erro to response
-            // override system message DUPLICATE_PK with registration.duplicate.email
-            addPersistenceError(userForm, pe.getCause(), err(
-                    "DUPLICATE_PK", Messages.get("registration.duplicate.email", userForm.get().email)));
             return badRequest(register.render(userForm));
         }
 
