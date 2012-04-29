@@ -62,3 +62,15 @@ hr.soften {
 	font-weight: normal;
   	color: #999999;
 }
+
+.pull-top{
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    margin-bottom: 0;
+}
+
+.user-welcome {
+    padding: 10px 10px 11px 0px;
+}
