@@ -4,32 +4,40 @@
 @implicitFieldConstructor = @{ FieldConstructor(helper.bootst.render) }
 
 @layout("Registar no Norpneu"){
-  @staticcontent("headerLogin")
+  @structure.header_login()
 }{
   
 @helper.form(routes.Application.registerAction) {
 <div style="row-fluid">
-	<div class="formContainer">
-		<div class="login-well">
+    <div class="formContainer">
+        <div class="login-well">
             <h3>Registar no Norpneu</h3>
-			<p class="formRequiredInstuctions"><small>Campos com <span class="star-required">*</span> são obrigatórios</small></p>
-           	@helper.inputText(field=form("email"),args='_label -> "Utilizador (Email)", 'required -> true, 'placeholder->"ex: ana.reis@gmail.com")
-           	@helper.inputText(field=form("name"),args='_label -> "Nome", 'required -> true, 'placeholder->"Primeiro e último ex: Ana Reis")
-			@helper.inputText(field=form("company"),args='_label -> "Representação", 'required -> true, 'placeholder->"Empresa que representa")
-			@helper.inputText(field=form("phoneNumber"),args='_label -> "Contacto telefónico", 'required -> true,'placeholder->"Telefone fixo ou telemóvel")
-			@helper.inputText(field=form("street"),args='_label -> "Morada")
 
-            @if(form.hasGlobalErrors) { 
-                <div class="alert alert-error">
-            	<a class="close" data-dismiss="alert">×</a>
-                    @form.globalError.message
-                </div>
+            <p class="formRequiredInstuctions">
+                <small>Campos com <span class="star-required">*</span> são obrigatórios</small>
+            </p>
+            @helper.inputText(field=form("email"),
+                args='_label -> "Utilizador (Email)", 'required -> true, 'placeholder->"ex: ana.reis@gmail.com")
+            @helper.inputText(field=form("name"),
+                args='_label -> "Nome", 'required -> true, 'placeholder->"Primeiro e último ex: Ana Reis")
+            @helper.inputText(field=form("company"),
+                args='_label -> "Representação", 'required -> true, 'placeholder->"Empresa que representa")
+            @helper.inputText(field=form("phoneNumber"),
+                args='_label -> "Contacto telefónico", 'required ->true,'placeholder->"Telefone fixo ou telemóvel")
+            @helper.inputText(field=form("street"),
+                args='_label -> "Morada")
+
+            @if(form.hasGlobalErrors) {
+            <div class="alert alert-error">
+                <a class="close" data-dismiss="alert">×</a>
+                @form.globalError.message
+            </div>
             }
-
-            <button class="btn btn-primary" type="submit">Registar</button> 
-        
-       </div>
+            <button class="btn btn-primary" type="submit">Registar</button>
+        </div>
+    </div>
+</div>
 }
 }{
-   @staticcontent("contactos")
+   @structure.footer_contacts()
 }
