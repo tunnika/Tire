@@ -1,7 +1,10 @@
 @(user:User)
-@layout("Welcome to Norpneu"){<br/>} {
-    
+
+@layout("Welcome to Norpneu"){
+    @structure.header_dashboard(user.email)
+} {
     <dl id="user">
+
                <dt>@user.name <span>(@user.email)</span></dt>
                 <dd>
                     (<a href="@routes.Application.logout()">Logout</a>)
