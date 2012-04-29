@@ -1,21 +1,2 @@
 @** TODO: procurar solução mais elegante para invocação de pedaços de código estatico **@
 @(section:String)
-
-@if(section.matches("contactos")){
-  @contactos()
-} 
-@if(section.matches("headerLogin")) {
-  @headerLogin()
-}
-
-@contactos() = {
-
-}
-
-@headerLogin() = {
-<div class="well">
-	<a class="brand" href="@routes.Application.login">Norpneu</a>
-	<p class="pull-right headerChallenge hidden-phone">Quer vender pneus a preços exclusivos?&nbsp;&nbsp;<a class="btn btn-primary" href="@routes.Application.registerForward">Criar conta</a></p>
-	<p class="pull-right visible-phone">&nbsp;&nbsp;<a class="btn btn-primary" href="@routes.Application.registerForward">Criar conta</a></p>
-</div>
-}
