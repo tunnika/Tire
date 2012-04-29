@@ -1,75 +1,90 @@
 @(form: Form[Login])
 
 @import helper.FieldConstructor
-
-
 @implicitFieldConstructor = @{ FieldConstructor(helper.bootst.render) }
 
 @layout("Norpneu login"){
-  @staticcontent("headerLogin")
-  @if(flash.contains("success")) {
-                <div class="alert alert-success">
-            	<a class="close" data-dismiss="alert">×</a>
-                    @flash.get("success")
-                </div>
-            }
+@structure.header_login()
+
+@if(flash.contains("success")) {
+<div class="alert alert-success">
+    <a class="close" data-dismiss="alert">×</a>
+    @flash.get("success")
+</div>
+}
 }{
 <div style="row-fluid">
-	<div class="formContainer">
-		<div class="login-well">
+    <div class="formContainer">
+        <div class="login-well">
             <h3>Entrar no Norpneu</h3>
-@helper.form(routes.Application.authenticate) {
-           	@helper.inputText(field=form("email"),args='_label -> "Utilizador", 'required -> true)
-           	@helper.inputPassword(field=form("password"),args='_label -> "Palavra chave", 'required -> true)
-            @if(form.hasGlobalErrors) { 
-                <div class="alert alert-error">
-            	<a class="close" data-dismiss="alert">×</a>
-                    @form.globalError.message
-                </div>
+            @helper.form(routes.Application.authenticate) {
+            @helper.inputText(field=form("email"),args='_label -> "Utilizador", 'required -> true)
+            @helper.inputPassword(field=form("password"),args='_label -> "Palavra chave", 'required -> true)
+            @if(form.hasGlobalErrors) {
+            <div class="alert alert-error">
+                <a class="close" data-dismiss="alert">×</a>
+                @form.globalError.message
+            </div>
             }
             <button class="btn btn-primary" type="submit">Entrar</button>
-           	<p class="pull-right" style="padding-top:5px">
-           		<input type="checkbox" id="remember">&nbsp;&nbsp;Manter-me autenticado</input>
-           	</p>
-           	<br/>
-        }
-		<span >
+            <p class="pull-right" style="padding-top:5px">
+                <input type="checkbox" id="remember">&nbsp;&nbsp;Manter-me autenticado</input>
+            </p>
+            <br/>
+            }
+		<span>
            	<a href="#" style="font-size:10px">Não se lembra do seu Utilizador ou Palavra chave?</a>
            	</span>
-       </div><!--end of login-well--> 
-	</div><!--end span12-->
+        </div>
+        <!--end of login-well-->
+    </div>
+    <!--end span12-->
 </div><!--end row-->
 <div style="row">
-  <div style="span12" >
-  <hr class="soften"/>
-  <div class="marketing">
-  <h1>As melhores marcas aos melhores preços.</h1>
-  <p class="marketing-byline"><a href="@routes.Application.aboutForward">Ver mais sobre o Norpneu online  ></a></p>
-  <div class="row">
-    <div class="span3">
-      <img class="bs-icon" src="@routes.Assets.at("images/glyphicons/glyphicons_037_credit.png")">
-      <h2><small>Os preços mais baixos</small></h2>
-      
-    </div>
-    <div class="span3">
-      <img class="bs-icon" src="@routes.Assets.at("images/glyphicons/glyphicons_043_group.png")">
-      <h2><small>Apenas para revendedores</small></h2>
+    <div style="span12">
+        <hr class="soften"/>
+        <div class="marketing">
+            <h1>As melhores marcas aos melhores preços.</h1>
 
+            <p class="marketing-byline"><a href="@routes.Application.aboutForward">Ver mais sobre o Norpneu online ></a>
+            </p>
+
+            <div class="row">
+                <div class="span3">
+                    <img class="bs-icon" src="@routes.Assets.at(" images/glyphicons/glyphicons_037_credit.png")">
+                    <h2>
+                        <small>Os preços mais baixos</small>
+                    </h2>
+
+                </div>
+                <div class="span3">
+                    <img class="bs-icon" src="@routes.Assets.at(" images/glyphicons/glyphicons_043_group.png")">
+                    <h2>
+                        <small>Apenas para revendedores</small>
+                    </h2>
+
+                </div>
+                <div class="span3">
+                    <img class="bs-icon" src="@routes.Assets.at(" images/glyphicons/glyphicons_058_truck.png")">
+                    <h2>
+                        <small>Entregas em menos de 24h</small>
+                    </h2>
+
+                </div>
+                <div class="span3">
+                    <img class="bs-icon" src="@routes.Assets.at(" images/glyphicons/glyphicons_343_thumbs_up.png")">
+                    <h2>
+                        <small>Satisfação garantida</small>
+                    </h2>
+
+                </div>
+            </div>
+            <!--/row-->
+        </div>
+        <!--/marketing-->
     </div>
-    <div class="span3">
-      <img class="bs-icon" src="@routes.Assets.at("images/glyphicons/glyphicons_058_truck.png")">
-      <h2><small>Entregas em menos de 24h</small></h2>
-      
-    </div>
-    <div class="span3">
-      <img class="bs-icon" src="@routes.Assets.at("images/glyphicons/glyphicons_343_thumbs_up.png")">
-      <h2><small>Satisfação garantida</small></h2>
-      
-    </div>
-  </div><!--/row-->
-  </div><!--/marketing-->
-</div><!--/span12-->
-</div> <!--/row--> 
+    <!--/span12-->
+</div> <!--/row-->
 }{
-   @staticcontent("contactos")
+@structure.footer_contacts()
 }
