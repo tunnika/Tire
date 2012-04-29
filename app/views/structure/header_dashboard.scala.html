@@ -1,0 +1,30 @@
+@(user:String)
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="/">@Messages("brand.name")</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li class="">
+                        <a href="#">Página Principal</a>
+                    </li>
+                    <li class="">
+                        <a href="#">As minhas encomendas</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="pull-right">
+                <ul class="nav">
+                    <li class="">
+                        <a href="@routes.Application.logout()">Sair</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="pull-right">
+                <div class="user-welcome">
+                   <span> Olá <a href="">@user</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
