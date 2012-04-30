@@ -20,7 +20,7 @@ import com.avaje.ebean.validation.NotNull;
  *
  */
 @Entity
-public class TyreCategory extends Model {
+public class TireCategory extends Model {
 
 	@Id
 	public String name;
@@ -29,7 +29,7 @@ public class TyreCategory extends Model {
 	public boolean active=false;
 	
 	@ManyToMany(fetch=FetchType.LAZY) 
-    public List<Tyre> tyres = new ArrayList<Tyre>(); 
+    public List<Tire> tyres = new ArrayList<Tire>();
 	
 	/**
 	 * 
@@ -39,7 +39,7 @@ public class TyreCategory extends Model {
 	/**
 	 * 
 	 */
-	public TyreCategory() {
+	public TireCategory() {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -1,3 +1,5 @@
+brand.name = Norpneu
+
 # --------------------#
 #    Play Default     #
 # --------------------#
@@ -18,5 +20,7 @@ registration.pending.approval = Pedido registado. Assim que a sua conta estiver 
 registration.duplicate.email = O email {0} já foi previamente registado. Por favor forneça um outro email.
 
 
-
-brand.name = Norpneu
+# --------------------#
+#  dashboard form     #
+# --------------------#
+search.placeholder = ex: 1856014 ou <60eur ou goodyear 185 < 100eur

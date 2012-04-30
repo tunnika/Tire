@@ -41,18 +41,121 @@ users:
 brands:
     - !!models.norpneu.Brand
         name:       Good Year
+        logoImage:  empty_in_yaml
 
     - !!models.norpneu.Brand
         name:       Yokohama
+        logoImage:  empty_in_yaml
        
     - !!models.norpneu.Brand
-        name:       Pace         
+        name:       Pace
+        logoImage:  empty_in_yaml
            
     - !!models.norpneu.Brand
         name:       Michellin         
-           
+        logoImage:  empty_in_yaml
+
     - !!models.norpneu.Brand
         name:       Pirelli         
-           
+        logoImage:  empty_in_yaml
+
     - !!models.norpneu.Brand
-        name:       Bridgestone         
+        name:       Bridgestone
+        logoImage:  empty_in_yaml
+
+tires:
+    - !!models.norpneu.Tire
+        measure:                1856014
+        pavementIndex:          ADRIVE
+        speedIndex:             82H
+        brand:                  Good Year
+        price:                  50
+        stockUnitsAvailable:    15
+
+    - !!models.norpneu.Tire
+        measure:                1856014
+        pavementIndex:          ADRIVE
+        speedIndex:             72H
+        brand:                  Good Year
+        price:                  45
+        stockUnitsAvailable:    20
+
+    - !!models.norpneu.Tire
+        measure:                2006014
+        pavementIndex:          ADRIVE
+        speedIndex:             82H
+        brand:                  Good Year
+        price:                  70
+        stockUnitsAvailable:    20
+
+    - !!models.norpneu.Tire
+        measure:                2006014
+        pavementIndex:          ADRIVE
+        speedIndex:             72H
+        brand:                  Good Year
+        price:                  60
+        stockUnitsAvailable:    20
+
+    - !!models.norpneu.Tire
+        measure:                1856014
+        pavementIndex:          ADRIVE
+        speedIndex:             82H
+        brand:                  Michellin
+        price:                  75
+        stockUnitsAvailable:    5
+
+    - !!models.norpneu.Tire
+        measure:                1856014
+        pavementIndex:          ADRIVE
+        speedIndex:             72H
+        brand:                  Michellin
+        price:                  70
+        stockUnitsAvailable:    8
+
+    - !!models.norpneu.Tire
+        measure:                2006014
+        pavementIndex:          ADRIVE
+        speedIndex:             82H
+        brand:                  Michellin
+        price:                  110
+        stockUnitsAvailable:    5
+
+    - !!models.norpneu.Tire
+        measure:                2006014
+        pavementIndex:          ADRIVE
+        speedIndex:             72H
+        brand:                  Michellin
+        price:                  100
+        stockUnitsAvailable:    8
+
+    - !!models.norpneu.Tire
+        measure:                1856014
+        pavementIndex:          ADRIVE
+        speedIndex:             82H
+        brand:                  Yokohama
+        price:                  48
+        stockUnitsAvailable:    7
+
+    - !!models.norpneu.Tire
+        measure:                1856014
+        pavementIndex:          ADRIVE
+        speedIndex:             72H
+        brand:                  Yokohama
+        price:                  43
+        stockUnitsAvailable:    13
+
+    - !!models.norpneu.Tire
+        measure:                2006014
+        pavementIndex:          ADRIVE
+        speedIndex:             82H
+        brand:                  Yokohama
+        price:                  60
+        stockUnitsAvailable:    7
+
+    - !!models.norpneu.Tire
+        measure:                2006014
+        pavementIndex:          ADRIVE
+        speedIndex:             72H
+        brand:                  Yokohama
+        price:                  57
+        stockUnitsAvailable:    13

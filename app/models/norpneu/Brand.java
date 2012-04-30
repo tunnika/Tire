@@ -26,6 +26,9 @@ public class Brand extends Model {
 	public Brand() {
 		// TODO Auto-generated constructor stub
 	}
+    public Brand(String name){
+        this.name = name;
+    }
 	
 	
 

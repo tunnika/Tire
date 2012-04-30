@@ -15,8 +15,6 @@ import javax.persistence.OneToOne;
 
 import play.db.ebean.Model;
 
-import com.avaje.ebean.TxIsolation;
-import com.avaje.ebean.annotation.Transactional;
 import com.avaje.ebean.validation.NotNull;
 
 /**
@@ -24,7 +22,7 @@ import com.avaje.ebean.validation.NotNull;
  *
  */
 @Entity
-public class Tyre extends Model {
+public class Tire extends Model {
 	
 	@Id
 	public Long id;
@@ -48,14 +46,14 @@ public class Tyre extends Model {
 	public long stockUnitsAvailable;
 	
 	@ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL,mappedBy="tyres") 
-    public List<TyreCategory> tyreCategories = new ArrayList<TyreCategory>(); 
+    public List<TireCategory> tyreCategories = new ArrayList<TireCategory>();
 
 
 
 	/***
 	 * FINDERS
 	 */
-	public static Model.Finder<Long, Tyre> finder =  new Model.Finder<Long, Tyre>(Long.class, Tyre.class);
+	public static Model.Finder<Long, Tire> finder =  new Model.Finder<Long, Tire>(Long.class, Tire.class);
 	
 	/**
 	 * 
@@ -65,7 +63,7 @@ public class Tyre extends Model {
 	/**
 	 * 
 	 */
-	public Tyre() {
+	public Tire() {
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -76,7 +74,7 @@ public class Tyre extends Model {
 //	
 //	@Transactional(isolation=TxIsolation.READ_COMMITED)
 //	public void decreaseStock(long units){
-//		Tyre tyre = finder.byId(id);
+//		Tire tyre = finder.byId(id);
 //		tyre.stockUnitsAvailable = getStockUnitsAvailable() - units;
 //		tyre.save();
 //	}

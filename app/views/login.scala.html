@@ -18,19 +18,24 @@
         <div class="login-well">
             <h3>Entrar no Norpneu</h3>
             @helper.form(routes.Application.authenticate) {
-            @helper.inputText(field=form("email"),args='_label -> "Utilizador", 'required -> true)
-            @helper.inputPassword(field=form("password"),args='_label -> "Palavra chave", 'required -> true)
-            @if(form.hasGlobalErrors) {
-            <div class="alert alert-error">
-                <a class="close" data-dismiss="alert">×</a>
-                @form.globalError.message
-            </div>
-            }
-            <button class="btn btn-primary" type="submit">Entrar</button>
-            <p class="pull-right" style="padding-top:5px">
-                <input type="checkbox" id="remember">&nbsp;&nbsp;Manter-me autenticado</input>
-            </p>
-            <br/>
+
+                @helper.inputText(field=form("email"),
+                    args='_label -> "Utilizador", 'required -> true)
+                @helper.inputPassword(field=form("password"),
+                    args='_label -> "Palavra chave", 'required -> true)
+
+                @if(form.hasGlobalErrors) {
+                <div class="alert alert-error">
+                    <a class="close" data-dismiss="alert">×</a>
+                    @form.globalError.message
+                </div>
+                }
+
+                <button class="btn btn-primary" type="submit">Entrar</button>
+                <p class="pull-right" style="padding-top:5px">
+                    <input type="checkbox" id="remember">&nbsp;&nbsp;Manter-me autenticado</input>
+                </p>
+                <br/>
             }
 		<span>
            	<a href="#" style="font-size:10px">Não se lembra do seu Utilizador ou Palavra chave?</a>

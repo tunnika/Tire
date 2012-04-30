@@ -1,14 +1,26 @@
-@(user:User)
+@(user:User, form:Form[Search])
+
+@import helper.FieldConstructor
+@implicitFieldConstructor = @{ FieldConstructor(helper.bootst.render) }
 
 @layout("Welcome to Norpneu"){
     @structure.header_dashboard(user.email)
 } {
-    <dl id="user">
 
-               <dt>@user.name <span>(@user.email)</span></dt>
-                <dd>
-                    (<a href="@routes.Application.logout()">Logout</a>)
-                </dd>
-    </dl>
+<div class="row">
+    <div class="span4 offset4">
+        <h2>Pesquisa de Pneus</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="span8 offset2">
+        @helper.form(routes.Dashboard.search) {
+            <input type="text" name="searchQuery" class="input-xxlarge search-query"
+                   placeholder='@Messages("search.placeholder")'>
+            <button type="submit" class="btn" id="submit-search">Pesquisar</button>
+        }
+    </div>
+</div>
     
 }{<br/>}
+<script src="@routes.Assets.at("javascripts/dashboard.js")"></script>

@@ -1,0 +1,72 @@
+@(user:User, tires:List[norpneu.Tire])
+
+@display(tire: norpneu.Tire) = {
+    <div class="stock">@tire.stockUnitsAvailable un. disponíveis</div>
+    <div class="brand">@tire.brand.name</div>
+
+    <div class="price"><h2>@tire.price€</h2></div>
+    <div class="measure"><h2><a href="#">@tire.measure</a></h2></div>
+
+    <div class="attributes">@tire.pavementIndex @tire.speedIndex</div>
+    <div class="order"><a href="#">Encomendar</a></div>
+}
+
+
+@layout("Welcome to Norpneu"){
+    @structure.header_dashboard(user.email)
+} {
+<style type="text/css">
+    .result-tire{
+        padding-top:5px;
+    }
+    .result-tire .stock {
+        float:left;
+        font-size:xx-small;
+    }
+    .result-tire .brand {
+        float:right;
+        font-size:small;
+    }
+    .result-tire .price {
+        clear:both; /* avoid wrapping around stock and brand */
+        float:left;
+
+    }
+    .result-tire .measure {
+        float:right;
+    }
+    .result-tire .attributes{
+        clear:both;
+    }
+    .result-tire .order {
+        float:right;
+    }
+
+</style>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+
+        <div class="span2"><!-- side bar start -->
+            <p>Filters !!TBD!!</p>
+        </div> <!-- side bar end -->
+
+        <div class="span10"> <!-- content start -->
+
+            <h2>Resultados da pesquisa</h2>
+            <div class="row">
+                @for(tire <- tires) {
+                <div class="well span2 result-tire">
+                    @display(tire)
+                </div>
+                }
+            </div>
+
+        </div> <!-- content End -->
+    </div><!-- row-fluid -->
+</div> <!-- container-fluid -->
+
+
+
+
+}{<br/>}
