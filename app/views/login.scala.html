@@ -20,9 +20,9 @@
             @helper.form(routes.Application.authenticate) {
 
                 @helper.inputText(field=form("email"),
-                    args='_label -> "Utilizador", 'required -> true)
+                    args='_label -> "Utilizador")
                 @helper.inputPassword(field=form("password"),
-                    args='_label -> "Palavra chave", 'required -> true)
+                    args='_label -> "Palavra chave")
 
                 @if(form.hasGlobalErrors) {
                 <div class="alert alert-error">
@@ -46,55 +46,38 @@
     <!--end span12-->
 </div><!--end row-->
 <div style="row">
-<<<<<<< HEAD
-    <div style="span12">
-        <hr class="soften"/>
-        <div class="marketing">
-            <h1>As melhores marcas aos melhores preços.</h1>
-=======
   <div style="span12" >
   <hr class="soften"/>
   <div class="marketing">
   <h1>Os melhores pneus aos melhores preços.</h1>
-  <p class="marketing-byline"><a href="@routes.Application.aboutForward">Ver mais sobre o Norpneu online  ></a></p>
-  <div class="row">
-    <div class="span3">
-      <img class="bs-icon" src="@routes.Assets.at("images/glyphicons/glyphicons_037_credit.png")">
-      <h2><small>Os preços mais baixos</small></h2>
-      
-    </div>
-    <div class="span3">
-      <img class="bs-icon" src="@routes.Assets.at("images/glyphicons/glyphicons_043_group.png")">
-      <h2><small>Apenas para revendedores</small></h2>
->>>>>>> Changed the the main marketing header
 
             <p class="marketing-byline"><a href="@routes.Application.aboutForward">Ver mais sobre o Norpneu online ></a>
             </p>
 
             <div class="row">
                 <div class="span3">
-                    <img class="bs-icon" src="@routes.Assets.at(" images/glyphicons/glyphicons_037_credit.png")">
+                    <img class="bs-icon" src="@routes.Assets.at("images/glyphicons/glyphicons_037_credit.png")">
                     <h2>
                         <small>Os preços mais baixos</small>
                     </h2>
 
                 </div>
                 <div class="span3">
-                    <img class="bs-icon" src="@routes.Assets.at(" images/glyphicons/glyphicons_043_group.png")">
+                    <img class="bs-icon" src="@routes.Assets.at("images/glyphicons/glyphicons_043_group.png")">
                     <h2>
                         <small>Apenas para revendedores</small>
                     </h2>
 
                 </div>
                 <div class="span3">
-                    <img class="bs-icon" src="@routes.Assets.at(" images/glyphicons/glyphicons_058_truck.png")">
+                    <img class="bs-icon" src="@routes.Assets.at("images/glyphicons/glyphicons_058_truck.png")">
                     <h2>
                         <small>Entregas em menos de 24h</small>
                     </h2>
 
                 </div>
                 <div class="span3">
-                    <img class="bs-icon" src="@routes.Assets.at(" images/glyphicons/glyphicons_343_thumbs_up.png")">
+                    <img class="bs-icon" src="@routes.Assets.at("images/glyphicons/glyphicons_343_thumbs_up.png")">
                     <h2>
                         <small>Satisfação garantida</small>
                     </h2>

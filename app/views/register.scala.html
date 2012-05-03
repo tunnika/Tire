@@ -4,13 +4,13 @@
 @implicitFieldConstructor = @{ FieldConstructor(helper.bootst.render) }
 
 @layout("Registar no Norpneu"){
-  @structure.header_login()
+  @structure.header_login(false)
 }{
   
 @helper.form(routes.Application.registerAction) {
 <div style="row-fluid">
     <div class="formContainer">
-        <div class="login-well">
+        <div class="register-well">
             <h3>Registar no Norpneu</h3>
 
             <p class="formRequiredInstuctions">
@@ -24,8 +24,13 @@
                 args='_label -> "Representação", 'required -> true, 'placeholder->"Empresa que representa")
             @helper.inputText(field=form("phoneNumber"),
                 args='_label -> "Contacto telefónico", 'required ->true,'placeholder->"Telefone fixo ou telemóvel")
-            @helper.inputText(field=form("street"),
-                args='_label -> "Morada")
+			<div class="form-inline">
+            	@helper.inputText(field=form("street"),
+                	args='_label -> "Morada", 'placeholder->"Rua, Nº, Andar, Porta")
+
+				<input type="text" id="postalCode" name="postalCode" class="input-small" placeholder="C. Postal">
+				<input type="text" id="city" name="city" class="input-medium" placeholder="Localidade">
+			</div>
 
             @if(form.hasGlobalErrors) {
             <div class="alert alert-error">
@@ -33,7 +38,9 @@
                 @form.globalError.message
             </div>
             }
-            <button class="btn btn-primary" type="submit">Registar</button>
+            <button class="btn btn-primary" type="submit">Registar</button><span>
+           	<a href="@routes.Application.login" class="btn btn-secondary">Cancelar</a>
+           	</span>
         </div>
     </div>
 </div>

@@ -17,6 +17,7 @@ public class Dashboard extends Controller {
     public static Result index() {
         return ok(dashboard.render(User.findByEmail(session("email")), form(Search.class)));
     }
+    
 
     public static Result search(){
         Form<Search> searchForm = form(Search.class).bindFromRequest();

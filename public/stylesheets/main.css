@@ -1,3 +1,8 @@
+body
+{
+	margin-bottom: 0px;
+}
+
 a.brand {
   float: left;
   display: block;
@@ -23,6 +28,7 @@ p.headerChallenge
 	top:1px;
 }
 
+.register-well,
 .login-well
 { 
 	display: table;
@@ -41,6 +47,31 @@ p.headerChallenge
 	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
+.register-well
+{
+	width: 300px;
+}
+
+.register-well input
+{
+	width: 280px;
+}
+
+.register-well .input-small
+{
+	width: 60px;
+}
+
+.register-well .input-medium 
+{
+	width: 205px;
+}
+
+.register-well .form-inline
+{
+	margin-bottom: 10px;
+}
+
 .alert-success
 {
 	margin-left:20px;
@@ -50,6 +81,40 @@ p.headerChallenge
 hr.soften {
 	height: 1px;
 	margin: 34px 0;
+}
+
+.footer, .push {
+	border-top: 0;
+	height: 20px;
+	clear: both;
+}
+
+.footer{
+	background: #252525;
+}
+
+.footer p {
+	color: #999;
+}
+
+.footer #footer-floor {
+	
+}
+
+.footer #footer-floor h3, .footer #footer-floor h4 {
+	color: white;
+}
+
+.footer #footer-floor #elsewhere-msg {
+	padding-top: 18px;
+}
+
+.footer #footer-floor #elsewhere-icons {
+	padding-top: 13px;
+}
+
+.ar {
+	text-align: right;
 }
 
 .formContainer{
@@ -68,6 +133,14 @@ hr.soften {
     right: 0;
     left: 0;
     top: 0;
+    margin-bottom: 0;
+}
+
+.pull-bottom{
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
     margin-bottom: 0;
 }
 
