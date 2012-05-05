@@ -3,6 +3,16 @@ body
 	margin-bottom: 0px;
 }
 
+div.content-center
+{
+	text-align: center;
+}
+
+div.content-center .row-fluid, div.content-center .row
+{
+	margin-top: 10px;
+}
+
 a.brand {
   float: left;
   display: block;
