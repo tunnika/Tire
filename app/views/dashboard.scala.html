@@ -3,7 +3,7 @@
 @import helper.FieldConstructor
 @implicitFieldConstructor = @{ FieldConstructor(helper.bootst.render) }
 
-@layout("Welcome to Norpneu"){
+@layout("Norpneu Online - "+user.name){
     @structure.header_dashboard(user.email)
 } {
 <div class="content-center">
@@ -24,7 +24,7 @@
 <div class="row-fluid">
     <div class="span12">
 		<p class="marketing-byline">
-			<a href="#">Ver todos os pneus</a>
+			<a href="@routes.Dashboard.searchAll">Ver todos os pneus</a>
 		</p>
     </div>
 </div>

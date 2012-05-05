@@ -14,19 +14,29 @@ import java.util.List;
 
 @Security.Authenticated(Secured.class)
 public class Dashboard extends Controller {
-    public static Result index() {
-        return ok(dashboard.render(User.findByEmail(session("email")), form(Search.class)));
-    }
-    
+	public static Result index() {
+		return ok(dashboard.render(User.findByEmail(session("email")),
+				form(Search.class)));
+	}
 
-    public static Result search(){
-        Form<Search> searchForm = form(Search.class).bindFromRequest();
-        if(searchForm.hasErrors()){
-            return ok(dashboard.render(User.findByEmail(session("email")), searchForm));
-        }
-        List<Tire> tires = Tire.finder.where()
-                .eq("measure", searchForm.get().searchQuery).findList();
-        
-        return ok(search_results.render(User.findByEmail(session("email")), tires));
-    }
+	public static Result search() {
+		Form<Search> searchForm = form(Search.class).bindFromRequest();
+		if (searchForm.hasErrors()) {
+			return ok(dashboard.render(User.findByEmail(session("email")),
+					searchForm));
+		}
+		List<Tire> tires = Tire.finder.where()
+				.eq("measure", searchForm.get().searchQuery).findList();
+
+		return ok(search_results.render(User.findByEmail(session("email")),
+				tires));
+	}
+
+	public static Result searchAll() {
+
+		List<Tire> tires = Tire.finder.all();
+
+		return ok(search_results.render(User.findByEmail(session("email")),
+				tires));
+	}
 }
