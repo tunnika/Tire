@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import com.avaje.ebean.validation.NotNull;
@@ -26,6 +27,7 @@ public class TireCategory extends Model {
 	public String name;
 	
 	@NotNull
+	@Constraints.Required
 	public boolean active=false;
 	
 	@ManyToMany(fetch=FetchType.LAZY) 

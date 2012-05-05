@@ -23,3 +23,7 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 # Dashboard
 POST    /tire/search                controllers.Dashboard.search()
 GET		/tire/search				controllers.Dashboard.searchAll()
+
+#Json stuff
+GET		/users						controllers.Application.allUserJson()
+GET		/tires						controllers.Application.allTireJson()

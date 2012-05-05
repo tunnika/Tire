@@ -58,6 +58,10 @@ public class User extends Model {
 	@Length(max=30)
     @Constraints.MaxLength(value=30)
 	public String city;
+	
+	@NotNull
+	@Constraints.Required /* percentage /100 ex: 99.45% = 9945 10% = 1000 */
+	public Long discountLevel=Long.valueOf(0l);
 
 
 	public String gpsLatPos;
