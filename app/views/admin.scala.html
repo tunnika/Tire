@@ -1,0 +1,22 @@
+@(user:User)
+
+@import helper.FieldConstructor
+@implicitFieldConstructor = @{ FieldConstructor(helper.bootst.render) }
+
+@layout("Welcome to Norpneu"){
+    @structure.header_dashboard(user.email)
+} {
+    @if(flash.contains("success")) {
+        <div class="alert alert-success">
+            <a class="close" data-dismiss="alert">×</a>
+            @flash.get("success")
+        </div>
+    }
+    @if(flash.contains("error")) {
+        <div class="alert alert-error">
+            <a class="close" data-dismiss="alert">×</a>
+            @flash.get("error")
+        </div>
+    }
+}{<br/>}
+<script src="@routes.Assets.at("javascripts/dashboard.js")"></script>
