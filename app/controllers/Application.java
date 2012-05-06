@@ -4,9 +4,15 @@ import exceptions.FormValidationException;
 import models.ChangePassword;
 import models.Login;
 import models.User;
+import models.norpneu.Tire;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.ObjectNode;
 import play.Logger;
 import play.data.Form;
 import play.i18n.Messages;
+import play.libs.Json;
 import play.mvc.Result;
 import util.EnhancedController;
 import util.email.AWSSimpleEmailService;
@@ -18,6 +24,7 @@ import views.html.register;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 
 public class Application extends EnhancedController {
@@ -119,5 +126,63 @@ public class Application extends EnhancedController {
         flash("success", "Palavra passe alterada com sucesso. Por favor efectue agora o seu login");
         return redirect(routes.Application.login());
     }
+
+
+    public static Result allUserJson() {
+        /*
+           * IF JSON DATA ON REQUEST IS NEEDED JsonNode jsonNodeRequest =
+           * request().body().asJson(); if (jsonNodeRequest == null) return
+           * badRequest("Expecting Json data");
+           */
+        // Validate if the header request is json
+        if (request().getHeader(CONTENT_TYPE) == null || !request().getHeader(CONTENT_TYPE).equalsIgnoreCase("application/json"))
+            return badRequest("Expecting Json request");
+        ObjectNode result = Json.newObject();
+        List<User> users = User.findAll();
+        String json = null;
+        try {
+            json = new ObjectMapper().writeValueAsString(users);
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+            return badRequest("Unable to jsonify object: "+e.getMessage());
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+            return badRequest("Unable to jsonify object: "+e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return badRequest("Unable to jsonify object: "+e.getMessage());
+        }
+        result.put("users", json);
+        return ok(result);
+    }
+
+    public static Result allTireJson() {
+        /*
+           * IF JSON DATA ON REQUEST IS NEEDED JsonNode jsonNodeRequest =
+           * request().body().asJson(); if (jsonNodeRequest == null) return
+           * badRequest("Expecting Json data");
+           */
+        // Validate if the header request is json
+        if (request().getHeader(CONTENT_TYPE) == null || !request().getHeader(CONTENT_TYPE).equalsIgnoreCase("application/json"))
+            return badRequest("Expecting Json request");
+        ObjectNode result = Json.newObject();
+        List<Tire> tires = Tire.finder.all();
+        String json = null;
+        try {
+            json = new ObjectMapper().writeValueAsString(tires);
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+            return badRequest("Unable to jsonify object: "+e.getMessage());
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+            return badRequest("Unable to jsonify object: "+e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return badRequest("Unable to jsonify object: "+e.getMessage());
+        }
+        result.put("tires", json);
+        return ok(result);
+    }
+
 
 }
