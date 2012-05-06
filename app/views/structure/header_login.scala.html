@@ -1,6 +1,8 @@
-@()
+@(showCreateAccount:Boolean=true)
 <div class="well pull-top">
     <a class="brand" href="@routes.Application.login">Norpneu</a>
-    <p class="pull-right headerChallenge hidden-phone">Quer vender pneus a preços exclusivos?&nbsp;&nbsp;<a class="btn btn-primary" href="@routes.Application.registerForward">Criar conta</a></p>
-    <p class="pull-right visible-phone">&nbsp;&nbsp;<a class="btn btn-primary" href="@routes.Application.registerForward">Criar conta</a></p>
+	@if(showCreateAccount){
+    	<p class="pull-right headerChallenge hidden-phone">Quer vender pneus a preços exclusivos?&nbsp;&nbsp;<a class="btn btn-primary" href="@routes.Application.registerForward">Criar conta</a></p>
+    	<p class="pull-right visible-phone">&nbsp;&nbsp;<a class="btn btn-primary" href="@routes.Application.registerForward">Criar conta</a></p>
+	}
 </div>

@@ -27,3 +27,7 @@ POST    /tire/search                controllers.Dashboard.search()
 
 # admin
 GET     /admin/approve-account      controllers.Admin.approveAccount(email)
+
+#Json stuff
+GET		/users						controllers.Application.allUserJson()
+GET		/tires						controllers.Application.allTireJson()

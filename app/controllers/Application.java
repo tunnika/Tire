@@ -1,18 +1,20 @@
 package controllers;
 
+import java.io.IOException;
+import java.util.List;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.ObjectNode;
+
 import exceptions.FormValidationException;
 import models.ChangePassword;
 import models.Login;
 import models.User;
-import models.norpneu.Tire;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.node.ObjectNode;
-import play.Logger;
 import play.data.Form;
 import play.i18n.Messages;
-import play.libs.Json;
 import play.mvc.Result;
 import util.EnhancedController;
 import util.email.AWSSimpleEmailService;
@@ -20,6 +22,7 @@ import views.html.about;
 import views.html.changepasswordonregister;
 import views.html.login;
 import views.html.register;
+import views.html.search_results;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

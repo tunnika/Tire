@@ -62,6 +62,7 @@ tires:
         brand:                  Good Year
         price:                  50
         stockUnitsAvailable:    15
+        ecoValue:               5
 
     - !!models.norpneu.Tire
         measure:                1856014
@@ -70,6 +71,7 @@ tires:
         brand:                  Good Year
         price:                  45
         stockUnitsAvailable:    20
+        ecoValue:               4
 
     - !!models.norpneu.Tire
         measure:                2006014
@@ -78,6 +80,7 @@ tires:
         brand:                  Good Year
         price:                  70
         stockUnitsAvailable:    20
+        ecoValue:               7
 
     - !!models.norpneu.Tire
         measure:                2006014
@@ -86,6 +89,7 @@ tires:
         brand:                  Good Year
         price:                  60
         stockUnitsAvailable:    20
+        ecoValue:               6
 
     - !!models.norpneu.Tire
         measure:                1856014
@@ -94,6 +98,7 @@ tires:
         brand:                  Michellin
         price:                  75
         stockUnitsAvailable:    5
+        ecoValue:               7
 
     - !!models.norpneu.Tire
         measure:                1856014
@@ -102,6 +107,7 @@ tires:
         brand:                  Michellin
         price:                  70
         stockUnitsAvailable:    8
+        ecoValue:               7
 
     - !!models.norpneu.Tire
         measure:                2006014
@@ -110,6 +116,7 @@ tires:
         brand:                  Michellin
         price:                  110
         stockUnitsAvailable:    5
+        ecoValue:               11
 
     - !!models.norpneu.Tire
         measure:                2006014
@@ -118,6 +125,7 @@ tires:
         brand:                  Michellin
         price:                  100
         stockUnitsAvailable:    8
+        ecoValue:               5
 
     - !!models.norpneu.Tire
         measure:                1856014
@@ -126,6 +134,7 @@ tires:
         brand:                  Yokohama
         price:                  48
         stockUnitsAvailable:    7
+        ecoValue:               4
 
     - !!models.norpneu.Tire
         measure:                1856014
@@ -134,6 +143,7 @@ tires:
         brand:                  Yokohama
         price:                  43
         stockUnitsAvailable:    13
+        ecoValue:               4
 
     - !!models.norpneu.Tire
         measure:                2006014
@@ -142,6 +152,7 @@ tires:
         brand:                  Yokohama
         price:                  60
         stockUnitsAvailable:    7
+        ecoValue:               6
 
     - !!models.norpneu.Tire
         measure:                2006014
@@ -150,3 +161,4 @@ tires:
         brand:                  Yokohama
         price:                  57
         stockUnitsAvailable:    13
+        ecoValue:               5

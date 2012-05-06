@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
+import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import com.avaje.ebean.validation.NotNull;
@@ -30,18 +31,27 @@ public class Tire extends Model {
 	@OneToOne(fetch=FetchType.EAGER)
 	public Brand brand;
 	
+	@Constraints.Required
 	@NotNull
 	public String measure;
 	
+	@Constraints.Required
 	@NotNull
 	public String pavementIndex;
 	
+	@Constraints.Required
 	@NotNull
 	public String speedIndex;
 	
+	@Constraints.Required
 	@NotNull /* stored on the minimum coin... example eurocents */
 	public Long price;
 	
+	@Constraints.Required
+	@NotNull /* stored on the minimum coin... example eurocents */
+	public Long ecoValue;
+	
+	@Constraints.Required
 	@NotNull
 	public long stockUnitsAvailable;
 	
