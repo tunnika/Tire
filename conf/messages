@@ -16,9 +16,15 @@ db.duplicate.pk = Já existe um registo com esta chave.
 # --------------------#
 #  Registration form  #
 # --------------------#
-registration.pending.approval = Pedido registado. Assim que a sua conta estiver autorizada, receberá um email em {0} com as instruções para a finilização do registo.
+registration.pending.approval = Pedido registado. Enviamos um email para {0} onde encontrará as instruções para a finalização do registo.
+registration.pending.approval.error = Pedido registado. De momento não nos foi possível enviar um email para {0} com as instruções adicionais. Logo que possível o email será enviado.
 registration.duplicate.email = O email {0} já foi previamente registado. Por favor forneça um outro email.
 
+registration.pending.approval.email.subject = Registo Norpneu
+registration.pending.approval.email.body = O seu pedido aguarda a nossa aprovação. Assim que a conta seja autorizada, receberá um novo email com as instruções para a finalização do registo.
+
+registration.approved.email.subject = Bem vindo à Norpneu
+registration.approved.email.body = A sua conta foi autorizada com sucesso. Clique <a href="http://localhost:9000/register/change-password?email={0}&hash={1}">aqui</a> para proceder à definição da palavra passe.
 
 # --------------------#
 #  dashboard form     #

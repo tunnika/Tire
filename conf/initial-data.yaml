@@ -13,15 +13,6 @@ users:
         phoneNumber: 937744118
     
     - !!models.User
-        email:      kimile@gmail.com
-        name:       Joaquim Rego
-        password:   secret
-        active:     true
-        powerUser:  false
-        company:    cenas
-        phoneNumber: 937744117
-    
-    - !!models.User
         email:      ruben_joane@hotmail.com
         name:       Ruben Leite
         password:   secret

@@ -12,7 +12,7 @@ import views.html.search_results;
 
 import java.util.List;
 
-@Security.Authenticated(Secured.class)
+@Security.Authenticated(DashboardLock.class)
 public class Dashboard extends Controller {
     public static Result index() {
         return ok(dashboard.render(User.findByEmail(session("email")), form(Search.class)));
