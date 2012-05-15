@@ -27,8 +27,13 @@
                     	  });
                       });
                   });
+        		  
         	  });
         	});
      // start the application
         app.run('#/');
+        $('#mainResults').masonry({
+			  itemSelector: '.result-tire',
+			  columnWidth: 150
+			});
 })(jQuery)

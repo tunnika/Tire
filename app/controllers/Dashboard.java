@@ -3,6 +3,7 @@ package controllers;
 import models.Search;
 import models.User;
 import models.norpneu.Tire;
+import play.cache.Cached;
 import play.data.Form;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -76,7 +77,7 @@ public class Dashboard extends Controller {
         return ok(result);
     }
 	
-
+	@Cached(key = "tireTemplate")
     public static Result tireTemplate(){
 		return ok(tire.render());
 	}
