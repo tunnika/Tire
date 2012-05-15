@@ -26,6 +26,11 @@
                     		  
                     	  });
                       });
+                  }).then(function(){
+                	  console.log("AFTER RENDER");
+                	  $('#filterContainer').addClass("span2");
+                	  $('#filterContainer').slideLeftShow();
+                	  $('#mainResults').removeClass("span12").addClass("span10");
                   });
         		  
         	  });
@@ -37,3 +42,26 @@
 			  columnWidth: 150
 			});
 })(jQuery)
+
+jQuery.fn.extend({
+  slideRightShow: function() {
+    return this.each(function() {
+        $(this).show('slide', {direction: 'right'}, 500);
+    });
+  },
+  slideLeftHide: function() {
+    return this.each(function() {
+      $(this).hide('slide', {direction: 'left'}, 500);
+    });
+  },
+  slideRightHide: function() {
+    return this.each(function() {
+      $(this).hide('slide', {direction: 'right'}, 500);
+    });
+  },
+  slideLeftShow: function() {
+    return this.each(function() {
+      $(this).show('slide', {direction: 'left'}, 500);
+    });
+  }
+});
