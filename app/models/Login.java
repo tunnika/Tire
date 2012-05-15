@@ -1,5 +1,7 @@
 package models;
 
+import com.avaje.ebean.validation.NotNull;
+
 import exceptions.UnableToAuthenticateException;
 import play.data.validation.Constraints;
 
@@ -8,8 +10,10 @@ public class Login {
     @Constraints.Required
     @Constraints.Email
     @Constraints.MinLength(7)
+    @NotNull
     public String email;
     @Constraints.Required
+    @NotNull
     public String password;
 
 
@@ -23,4 +27,26 @@ public class Login {
         }
         return null;
     }
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+    
+    
 }

@@ -19,10 +19,14 @@ POST	/register					controllers.Application.registerAction()
 GET     /register/change-password   controllers.Application.changePasswordForward(email, hash)
 POST    /register/change-password   controllers.Application.changePasswordAction()
 
+<<<<<<< HEAD
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # Dasboard
+=======
+# Dashboard
+>>>>>>> Sammy inclusion, Mustache inclusion, json support
 POST    /tire/search                controllers.Dashboard.search()
 
 # admin
@@ -31,3 +35,13 @@ GET     /admin/approve-account      controllers.Admin.approveAccount(email)
 #Json stuff
 GET		/users						controllers.Application.allUserJson()
 GET		/tires						controllers.Application.allTireJson()
+<<<<<<< HEAD
+=======
+
+GET		/Tire.ms					controllers.Application.tireTemplate()
+
+
+# Javascript routing
+GET     /assets/javascripts/routes          controllers.Application.javascriptRoutes()
+GET     /assets/*file                       controllers.Assets.at(path="/public", file)
+>>>>>>> Sammy inclusion, Mustache inclusion, json support

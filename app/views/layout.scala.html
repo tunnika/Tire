@@ -1,5 +1,5 @@
 @(title: String)(header:Html)(content: Html)(footer: Html)
-
+@import controllers.routes.javascript._
 <!DOCTYPE html>
 
 <html>
@@ -13,16 +13,18 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
         <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
 		<script src="@routes.Assets.at("javascripts/bootstrap.min.js")" type="text/javascript"></script>
-    </head>
+		<script type="text/javascript" src="@routes.Application.javascriptRoutes"></script>
+  
+  </head>
     <body>
 		@header
-    <div class="container">
-		<div class="content">
+    <div class="container-fluid">
         	@content
-		</div>
     </div> <!-- /container -->
-	<div class="pull-bottom">
-		@footer
-	</div>
+	<footer class="container navbar navbar-fixed-top">
+<p>&copy; Norpneu 2012</p>
+</footer>
+
+
 </body>
 </html>

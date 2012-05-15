@@ -1,6 +1,9 @@
 @(user:User, form:Form[Search])
 
 @import helper.FieldConstructor
+@import helper._
+@import controllers.routes.javascript._
+
 @implicitFieldConstructor = @{ FieldConstructor(helper.bootst.render) }
 
 @layout("Norpneu Online - "+user.name){
@@ -24,7 +27,7 @@
 <div class="row-fluid">
     <div class="span12">
 		<p class="marketing-byline">
-			<a id="searchAllTires" href="#">Ver todos os pneus</a>
+			<a id="searchAllTires" href="#/alltires">Ver todos os pneus</a>
 		</p>
     </div>
 </div>
@@ -36,4 +39,7 @@
 
 }{<br/>}
 <script src="@routes.Assets.at("javascripts/sammy.js")"></script>
+<script src="@routes.Assets.at("javascripts/mustache.js")"></script>
+<script src="@routes.Assets.at("javascripts/sammy.mustache.js")"></script>
+<script src="@routes.Assets.at("javascripts/sammy.json.js")"></script>
 <script src="@routes.Assets.at("javascripts/norpneu/dashboard.js")"></script>
