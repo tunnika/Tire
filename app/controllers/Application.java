@@ -10,6 +10,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.node.ObjectNode;
 import play.Logger;
+import play.Routes;
 import play.data.Form;
 import play.i18n.Messages;
 import play.libs.Json;
@@ -20,6 +21,7 @@ import views.html.about;
 import views.html.changepasswordonregister;
 import views.html.login;
 import views.html.register;
+import views.html.tire;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -53,6 +55,10 @@ public class Application extends EnhancedController {
     public static Result registerForward(){
     	return ok(register.render(form(User.class)));
     }
+    
+    public static Result tireTemplate(){
+		return ok(tire.render());
+	}
 
     public static Result registerAction(){
         Form<User> userForm = form(User.class).bindFromRequest();
@@ -183,6 +189,17 @@ public class Application extends EnhancedController {
         result.put("tires", json);
         return ok(result);
     }
+    
+    public static Result javascriptRoutes() {
+        response().setContentType("text/javascript");
+        return ok(
+            Routes.javascriptRouter("jsRoutes",
+            
+                // Routes for Projects
+                controllers.routes.javascript.Application.allTireJson(),
+                controllers.routes.javascript.Application.allUserJson()
+                ));
+	}
 
 
 }
