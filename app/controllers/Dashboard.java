@@ -4,13 +4,21 @@ import models.Search;
 import models.User;
 import models.norpneu.Tire;
 import play.data.Form;
+import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.Security;
 import views.html.dashboard;
 import views.html.search_results;
+import views.html.tire;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.node.ObjectNode;
 
 @Security.Authenticated(DashboardLock.class)
 public class Dashboard extends Controller {
@@ -38,5 +46,38 @@ public class Dashboard extends Controller {
 
 		return ok(search_results.render(User.findByEmail(session("email")),
 				tires));
+	}
+	
+	public static Result allTireJson() {
+        /*
+           * IF JSON DATA ON REQUEST IS NEEDED JsonNode jsonNodeRequest =
+           * request().body().asJson(); if (jsonNodeRequest == null) return
+           * badRequest("Expecting Json data");
+           */
+        // Validate if the header request is json
+        if (request().getHeader(CONTENT_TYPE) == null || !request().getHeader(CONTENT_TYPE).equalsIgnoreCase("application/json"))
+            return badRequest("Expecting Json request");
+        ObjectNode result = Json.newObject();
+        List<Tire> tires = Tire.finder.all();
+        String json = null;
+        try {
+            json = new ObjectMapper().writeValueAsString(tires);
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+            return badRequest("Unable to jsonify object: "+e.getMessage());
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+            return badRequest("Unable to jsonify object: "+e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return badRequest("Unable to jsonify object: "+e.getMessage());
+        }
+        result.put("tires", json);
+        return ok(result);
+    }
+	
+
+    public static Result tireTemplate(){
+		return ok(tire.render());
 	}
 }

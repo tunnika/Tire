@@ -12,7 +12,7 @@
         	 this.get('#/', function(context) {
         		 context.app.swap('');
         		 context.log('Sammy started');
-        		 //SHOULD LOAD ALL TIRES ON BG...
+        		 //SHOULD LOAD ALL TIRES ON BG TO A LOCAL BD...
         	 });
         	  this.get('#/alltires', function(context) {
         		  context.app.swap('');

@@ -27,9 +27,9 @@ GET     /admin/approve-account      controllers.Admin.approveAccount(email)
 
 #Json stuff
 GET		/users						controllers.Application.allUserJson()
-GET		/tires						controllers.Application.allTireJson()
+GET		/tires						controllers.Dashboard.allTireJson()
 
-GET		/Tire.ms					controllers.Application.tireTemplate()
+GET		/Tire.ms					controllers.Dashboard.tireTemplate()
 
 
 # Javascript routing

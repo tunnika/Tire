@@ -4,7 +4,6 @@ import exceptions.FormValidationException;
 import models.ChangePassword;
 import models.Login;
 import models.User;
-import models.norpneu.Tire;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -21,7 +20,6 @@ import views.html.about;
 import views.html.changepasswordonregister;
 import views.html.login;
 import views.html.register;
-import views.html.tire;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -56,9 +54,6 @@ public class Application extends EnhancedController {
     	return ok(register.render(form(User.class)));
     }
     
-    public static Result tireTemplate(){
-		return ok(tire.render());
-	}
 
     public static Result registerAction(){
         Form<User> userForm = form(User.class).bindFromRequest();
@@ -162,33 +157,6 @@ public class Application extends EnhancedController {
         return ok(result);
     }
 
-    public static Result allTireJson() {
-        /*
-           * IF JSON DATA ON REQUEST IS NEEDED JsonNode jsonNodeRequest =
-           * request().body().asJson(); if (jsonNodeRequest == null) return
-           * badRequest("Expecting Json data");
-           */
-        // Validate if the header request is json
-        if (request().getHeader(CONTENT_TYPE) == null || !request().getHeader(CONTENT_TYPE).equalsIgnoreCase("application/json"))
-            return badRequest("Expecting Json request");
-        ObjectNode result = Json.newObject();
-        List<Tire> tires = Tire.finder.all();
-        String json = null;
-        try {
-            json = new ObjectMapper().writeValueAsString(tires);
-        } catch (JsonGenerationException e) {
-            e.printStackTrace();
-            return badRequest("Unable to jsonify object: "+e.getMessage());
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-            return badRequest("Unable to jsonify object: "+e.getMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return badRequest("Unable to jsonify object: "+e.getMessage());
-        }
-        result.put("tires", json);
-        return ok(result);
-    }
     
     public static Result javascriptRoutes() {
         response().setContentType("text/javascript");
@@ -196,7 +164,7 @@ public class Application extends EnhancedController {
             Routes.javascriptRouter("jsRoutes",
             
                 // Routes for Projects
-                controllers.routes.javascript.Application.allTireJson(),
+                controllers.routes.javascript.Dashboard.allTireJson(),
                 controllers.routes.javascript.Application.allUserJson()
                 ));
 	}
