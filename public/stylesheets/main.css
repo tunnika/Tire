@@ -93,10 +93,34 @@ hr.soften {
 	margin: 34px 0;
 }
 
-footer.container.navbar-fixed-top {
-	top: auto;
-	bottom: 0;
-	padding-top: 60px;
+.footer, .push {
+	border-top: 0;
+	height: 20px;
+	clear: both;
+}
+
+.footer{
+	background: #252525;
+}
+
+.footer p {
+	color: #999;
+}
+
+.footer #footer-floor {
+	
+}
+
+.footer #footer-floor h3, .footer #footer-floor h4 {
+	color: white;
+}
+
+.footer #footer-floor #elsewhere-msg {
+	padding-top: 18px;
+}
+
+.footer #footer-floor #elsewhere-icons {
+	padding-top: 13px;
 }
 
 .ar {
@@ -133,33 +157,3 @@ footer.container.navbar-fixed-top {
 .user-welcome {
     padding: 10px 10px 11px 0px;
 }
-
-
-
-    .result-tire{
-        padding-top:5px;
-    }
-    .result-tire .stock {
-        float:left;
-        font-size:xx-small;
-    }
-    .result-tire .brand {
-        float:right;
-        font-size:small;
-    }
-    .result-tire .price {
-        clear:both; /* avoid wrapping around stock and brand */
-        float:left;
-
-    }
-    .result-tire .measure {
-        float:right;
-    }
-    .result-tire .attributes{
-        clear:both;
-    }
-    .result-tire .order {
-        float:right;
-    }
-
-
