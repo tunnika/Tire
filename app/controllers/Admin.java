@@ -1,16 +1,16 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
+import exceptions.QueueException;
 import models.User;
 import play.Logger;
 import play.i18n.Messages;
 import play.mvc.Result;
 import play.mvc.Security;
 import util.EnhancedController;
-import util.email.AWSSimpleEmailService;
+import util.NotificationManager;
 import views.html.admin;
 
-import java.io.IOException;
 import java.sql.Timestamp;
 
 @Security.Authenticated(AdminLock.class)
@@ -26,13 +26,11 @@ public class Admin extends EnhancedController{
             u.update();
             flash("success", "Account "+email+" has been approved");
             try {
-                AWSSimpleEmailService.send(email,
+                NotificationManager.queueNotification(email,
                         Messages.get("registration.approved.email.subject"),
                         Messages.get("registration.approved.email.body", u.email, u.password));
-            } catch (IOException e) {
-                // TODO: put in queue for later processing
-                e.printStackTrace();
-                Logger.error("Mail notification failed");
+            } catch (QueueException e) {
+                Logger.error("Mail notification failed", e);
             }
         } else {
             flash("error", "Account "+email+" not found or is already active");

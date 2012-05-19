@@ -1,11 +1,13 @@
 package util.email;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.auth.PropertiesCredentials;
 import com.amazonaws.services.simpleemail.AWSJavaMailTransport;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClient;
 import com.amazonaws.services.simpleemail.model.ListVerifiedEmailAddressesResult;
 import com.amazonaws.services.simpleemail.model.VerifyEmailAddressRequest;
+import exceptions.EmailException;
 import play.Logger;
 import play.Play;
 
@@ -33,13 +35,12 @@ public class AWSSimpleEmailService{
      * @param address
      *            The email address to verify.
      */
-    private static void verifyEmailAddress(AmazonSimpleEmailService ses, String address) {
+    private static void verifyEmailAddress(AmazonSimpleEmailService ses, String address)
+            throws AmazonClientException {
         ListVerifiedEmailAddressesResult verifiedEmails = ses.listVerifiedEmailAddresses();
         if (verifiedEmails.getVerifiedEmailAddresses().contains(address)) return;
 
         ses.verifyEmailAddress(new VerifyEmailAddressRequest().withEmailAddress(address));
-        System.out.println("Please check the email address " + address + " to verify it");
-        System.exit(0);
     }
 
     /*
@@ -50,16 +51,23 @@ public class AWSSimpleEmailService{
     private static final String FROM = Play.application().configuration().getConfig("norpneu").getString("email");
 
 
-    public static void send(String to, String subject, String body) throws IOException{
+    public static void send(String to, String subject, String body) throws EmailException{
         URL x = Play.application().resource("AwsCredentials.properties");
 
-
-        PropertiesCredentials credentials = new PropertiesCredentials(
-                Play.application().resourceAsStream("AwsCredentials.properties"));
+        PropertiesCredentials credentials = null;
+        try {
+            credentials = new PropertiesCredentials(
+                    Play.application().resourceAsStream("AwsCredentials.properties"));
+        } catch (IOException e) {
+            throw new EmailException(e);
+        }
 
         AmazonSimpleEmailService ses = new AmazonSimpleEmailServiceClient(credentials);
-
-        verifyEmailAddress(ses, FROM);
+        try{
+            verifyEmailAddress(ses, FROM);
+        } catch (AmazonClientException e){
+            throw new EmailException(e);
+        }
 
         /*
         * Setup JavaMail to use the Amazon Simple Email Service by specifying

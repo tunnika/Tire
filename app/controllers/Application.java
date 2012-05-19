@@ -1,6 +1,7 @@
 package controllers;
 
 import exceptions.FormValidationException;
+import exceptions.QueueException;
 import models.ChangePassword;
 import models.Login;
 import models.User;
@@ -15,7 +16,7 @@ import play.i18n.Messages;
 import play.libs.Json;
 import play.mvc.Result;
 import util.EnhancedController;
-import util.email.AWSSimpleEmailService;
+import util.NotificationManager;
 import views.html.about;
 import views.html.changepasswordonregister;
 import views.html.login;
@@ -63,17 +64,15 @@ public class Application extends EnhancedController {
         } catch (FormValidationException e) {
             return badRequest(register.render(userForm));
         }
-        // try sending email
+        // Add notification to queue
         try{
-            AWSSimpleEmailService.send(userForm.get().email,
+            NotificationManager.queueNotification(userForm.get().email,
                     Messages.get("registration.pending.approval.email.subject"),
                     Messages.get("registration.pending.approval.email.body"));
-
             flash("success", Messages.get("registration.pending.approval", userForm.get().email));
-        }catch (IOException ioe){
-            //TODO: add email to a queue to be processed later
+        }catch (QueueException e){
             flash("success", Messages.get("registration.pending.approval.error", userForm.get().email));
-            Logger.error("Error sending email for:"+userForm.get().email);
+            Logger.error("Error sending email for:"+userForm.get().email, e);
         }
         return redirect(routes.Application.login());
     }
@@ -114,13 +113,11 @@ public class Application extends EnhancedController {
             //TODO: how can I get the email if form is not valid?!?!
             return badRequest(changepasswordonregister.render("",form));
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            Logger.error("Error in  obfuscating password.");
+            Logger.error("Error in  obfuscating password.", e);
             addGlobalError(form, "Erro de incriptação da password. Por favor tente mais tarde");
             return badRequest(changepasswordonregister.render(changePasswordModel.email,form));
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            Logger.error("Error in  obfuscating password.");
+            Logger.error("Error in  obfuscating password.", e);
             addGlobalError(form, "Erro de incriptação da password. Por favor tente mais tarde");
             return badRequest(changepasswordonregister.render(changePasswordModel.email,form));
         }

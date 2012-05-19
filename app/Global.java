@@ -1,9 +1,5 @@
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
-import java.util.Map;
-
+import com.avaje.ebean.Ebean;
+import jobs.NotificationDispatcher;
 import models.User;
 import models.norpneu.Brand;
 import models.norpneu.Tire;
@@ -12,12 +8,23 @@ import play.GlobalSettings;
 import play.libs.Yaml;
 import util.GlobalVars;
 
-import com.avaje.ebean.Ebean;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
+import java.util.Map;
 
 public class Global extends GlobalSettings {
 
     public void onStart(Application app) {
+        //Enable log sql queries
+        //Ebean.getServer(null).getAdminLogging().setDebugGeneratedSql(true);
+        //Delete users from database
+        //Ebean.delete(Ebean.find(User.class).findList());
         InitialData.insert(app);
+
+        // start email dispatcher
+        (new NotificationDispatcher()).run();
     }
 
     static class InitialData {
