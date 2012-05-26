@@ -10,6 +10,7 @@ import com.amazonaws.services.simpleemail.model.VerifyEmailAddressRequest;
 import exceptions.EmailException;
 import play.Logger;
 import play.Play;
+import util.PlayUtils;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -48,7 +49,7 @@ public class AWSSimpleEmailService{
      *            so that you can receive the initial confirmation email
      *            from Amazon Simple Email Service.
      */
-    private static final String FROM = Play.application().configuration().getConfig("norpneu").getString("email");
+    private static final String FROM = PlayUtils.getApplicationConfig("email");
 
 
     public static void send(String to, String subject, String body) throws EmailException{

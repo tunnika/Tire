@@ -24,7 +24,7 @@ registration.pending.approval.email.subject = Registo Norpneu
 registration.pending.approval.email.body = O seu pedido aguarda a nossa aprovação. Assim que a conta seja autorizada, receberá um novo email com as instruções para a finalização do registo.
 
 registration.approved.email.subject = Bem vindo à Norpneu
-registration.approved.email.body = A sua conta foi autorizada com sucesso. Clique <a href="http://localhost:9000/register/change-password?email={0}&hash={1}">aqui</a> para proceder à definição da palavra passe.
+registration.approved.email.body = A sua conta foi autorizada com sucesso. Clique <a href="http://{0}:9000/register/change-password?email={1}&hash={2}">aqui</a> para proceder à definição da palavra passe.
 
 # --------------------#
 #  dashboard form     #

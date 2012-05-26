@@ -18,6 +18,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * Reads emails from database ( Entity models.Notifications ) and
  * tries to send them using AWS email service
+ *
+ * TODO: implement some kind of distribution according to email delivery policies:
+ *       For instance, no more then 100 emails each time
+ * TODO: make sure one batch as finished before starting a new one
+ * TODO: retry count: try to send a notification for a max number of times before give up;
  */
 public class NotificationDispatcher implements Job {
 
@@ -35,7 +40,7 @@ public class NotificationDispatcher implements Job {
 
                         // Create a transaction where objects read are locked
                         // until commited (at least, that's my understanding of
-                        // TxIsolation.READ_COMMITED
+                        // TxIsolation.READ_COMMITED )
                         TxScope txScope = TxScope.requiresNew()
                                 .setIsolation(TxIsolation.READ_COMMITED)
                                 .setNoRollbackFor(IOException.class);
