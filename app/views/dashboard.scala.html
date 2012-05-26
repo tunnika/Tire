@@ -9,6 +9,7 @@
 @layout("Norpneu Online - "+user.name){
     @structure.header_dashboard(user.email)
 } {
+<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/jquery-ui-1.8.20.custom.css")">
 <div class="content-center">
 <div class="row-fluid">
     <div class="span12">
@@ -36,6 +37,17 @@
 <div class="row-fluid">
 	<div id="filterContainer" class="well" style="display:none">
 	<h3>Filtros</h3>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12" id="filter-slider-range-label">
+                <p>
+                    <label for="amount">Intervalo de preços:</label>
+                    <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
+                </p>
+                </div>
+                <div class="span12" id="filter-slider-range"></div>
+            </div>
+        </div>
 	</div>
 	<div class="span12" id="mainResults">
 	</div>
@@ -46,9 +58,7 @@
 <script src="@routes.Assets.at("javascripts/mustache.js")"></script>
 <script src="@routes.Assets.at("javascripts/sammy.mustache.js")"></script>
 <script src="@routes.Assets.at("javascripts/sammy.json.js")"></script>
-<script src="@routes.Assets.at("javascripts/jquery.masonry.min.js")"></script>
-<script src="@routes.Assets.at("javascripts/jquery.effects.core.js")"></script>
-<script src="@routes.Assets.at("javascripts/jquery.effects.slide.js")"></script>
-<script src="@routes.Assets.at("javascripts/jquery.ui.slider.js")"></script>
+<script src="@routes.Assets.at("javascripts/jquery.quicksand.js")"></script>
+<script src="@routes.Assets.at("javascripts/jquery-ui-1.8.20.custom.min.js")"></script>
 <script src="@routes.Assets.at("javascripts/jquery.masonry.min.js")"></script>
 <script src="@routes.Assets.at("javascripts/norpneu/dashboard.js")"></script>

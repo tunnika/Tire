@@ -1,4 +1,5 @@
 (function($){
+        var availableBrands = [];
         //make sure search for does not get submitted with an empty string
         $('#submit-search').click(function(){
             if($('[name="searchQuery"]').val().length==0)
@@ -21,47 +22,38 @@
                   .then(function(items) {
                       $.each(items, function(i, tires) {
                     	  $.each(jQuery.parseJSON(tires), function(t, tirejson) {
-                    		  context.log(tirejson);
+                              //if(!$.inArray(tirejson.brand.name,availableBrands)){
+                                             availableBrands.push(tirejson.brand.name);
+                              //}
                     		  context.render('Tire.ms',tirejson).appendTo(context.$element());
                     		  
                     	  });
                       });
                   }).then(function(){
-                	  console.log("AFTER RENDER");
                 	  $('#filterContainer').addClass("span2");
                 	  $('#filterContainer').slideLeftShow();
                 	  $('#mainResults').removeClass("span12").addClass("span10");
-                  });
+                  }).then(function(){
+                          //LOAD FILTERING COMPONENT
+                          availableBrands = $.unique(availableBrands);
+                          availableBrands.sort();
+                          $( "#filter-slider-range" ).slider({
+                              range: true,
+                              min: 0,
+                              max: 500,
+                              values: [ 75, 300 ],
+                              slide: function( event, ui ) {
+                                  $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                              }
+                          });
+                          $( "#amount" ).val( "$" + $( "#filter-slider-range" ).slider( "values", 0 ) +
+                              " - $" + $( "#filter-slider-range" ).slider( "values", 1 ) );
+                          console.log("availableBrands",availableBrands);
+                      });
         		  
         	  });
         	});
      // start the application
         app.run('#/');
-        $('#mainResults').masonry({
-			  itemSelector: '.result-tire',
-			  columnWidth: 150
-			});
+        $('#mainResults').quicksand($('.result-tire'));
 })(jQuery)
-
-jQuery.fn.extend({
-  slideRightShow: function() {
-    return this.each(function() {
-        $(this).show('slide', {direction: 'right'}, 500);
-    });
-  },
-  slideLeftHide: function() {
-    return this.each(function() {
-      $(this).hide('slide', {direction: 'left'}, 500);
-    });
-  },
-  slideRightHide: function() {
-    return this.each(function() {
-      $(this).hide('slide', {direction: 'right'}, 500);
-    });
-  },
-  slideLeftShow: function() {
-    return this.each(function() {
-      $(this).show('slide', {direction: 'left'}, 500);
-    });
-  }
-});
