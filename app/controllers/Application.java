@@ -5,15 +5,10 @@ import exceptions.QueueException;
 import models.ChangePassword;
 import models.Login;
 import models.User;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.node.ObjectNode;
 import play.Logger;
 import play.Routes;
 import play.data.Form;
 import play.i18n.Messages;
-import play.libs.Json;
 import play.mvc.Result;
 import util.EnhancedController;
 import util.NotificationManager;
@@ -22,10 +17,8 @@ import views.html.changepasswordonregister;
 import views.html.login;
 import views.html.register;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 
 public class Application extends EnhancedController {
@@ -125,44 +118,13 @@ public class Application extends EnhancedController {
         return redirect(routes.Application.login());
     }
 
-
-    public static Result allUserJson() {
-        /*
-           * IF JSON DATA ON REQUEST IS NEEDED JsonNode jsonNodeRequest =
-           * request().body().asJson(); if (jsonNodeRequest == null) return
-           * badRequest("Expecting Json data");
-           */
-        // Validate if the header request is json
-        if (request().getHeader(CONTENT_TYPE) == null || !request().getHeader(CONTENT_TYPE).equalsIgnoreCase("application/json"))
-            return badRequest("Expecting Json request");
-        ObjectNode result = Json.newObject();
-        List<User> users = User.findAll();
-        String json = null;
-        try {
-            json = new ObjectMapper().writeValueAsString(users);
-        } catch (JsonGenerationException e) {
-            e.printStackTrace();
-            return badRequest("Unable to jsonify object: "+e.getMessage());
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-            return badRequest("Unable to jsonify object: "+e.getMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return badRequest("Unable to jsonify object: "+e.getMessage());
-        }
-        result.put("users", json);
-        return ok(result);
-    }
-
     
     public static Result javascriptRoutes() {
         response().setContentType("text/javascript");
         return ok(
             Routes.javascriptRouter("jsRoutes",
-            
                 // Routes for Projects
-                controllers.routes.javascript.Dashboard.allTireJson(),
-                controllers.routes.javascript.Application.allUserJson()
+                controllers.routes.javascript.Dashboard.allTireJson()
                 ));
 	}
 

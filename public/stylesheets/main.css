@@ -136,33 +136,51 @@ footer.container.navbar-fixed-top {
 
 
 
-    .result-tire{
-        padding-top:5px;
-        width:150px;
-        margin: 10px;
-  		float: left;
-    }
-    .result-tire .stock {
-        float:left;
-        font-size:xx-small;
-    }
-    .result-tire .brand {
-        float:right;
-        font-size:small;
-    }
-    .result-tire .price {
-        clear:both; /* avoid wrapping around stock and brand */
-        float:left;
+.result-tire{
+    padding-top:5px;
+    width:150px;
+    margin: 10px;
+    float: left;
+}
+.result-tire .stock {
+    float:left;
+    font-size:xx-small;
+}
+.result-tire .brand {
+    float:right;
+    font-size:small;
+}
+.result-tire .price {
+    clear:both; /* avoid wrapping around stock and brand */
+    float:left;
 
-    }
-    .result-tire .measure {
-        float:right;
-    }
-    .result-tire .attributes{
-        clear:both;
-    }
-    .result-tire .order {
-        float:right;
-    }
+}
+.result-tire .measure {
+    float:right;
+}
+.result-tire .attributes{
+    clear:both;
+}
+.result-tire .order {
+    float:right;
+}
 
 
+.toggle {
+    height: 9px;
+    width: 9px;
+    display: inline-block;
+}
+
+.toggle.expand {
+    background: url(../images/expand.gif) no-repeat center center;
+}
+
+.toggle.collapse {
+    background: url(../images/collapse.gif) no-repeat center center;
+}
+
+.admin-members-user-row {
+    margin-top:10px;
+    margin-bottom: 10px;
+}
