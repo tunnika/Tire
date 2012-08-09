@@ -1,24 +1,26 @@
 @(showOnlyBottomBar:Boolean=false)
 @if(!showOnlyBottomBar){
- <div class="container">
+ <!--<div class="container">->
     <!--<p>CENAS</p>
     <p class="pull-right">CENAS</p>
 -->
- </div>
+<!-- </div>-->
+
 }
-      <div id="footer-floor">
-          <div class="row footer-row">
-            <div class="span10">
-              <h3 class="socialNetworks">
-                Nas redes sociais
-              </h3>
-              <p>
-                F G T
-              </p>
-            </div>
-            <div class="span2 ar" id="elsewhere-msg">
-              <h4><a href="#">Envie-nos um email</a></h4>
-			  <h4><a href="#">Consulte as FAQ</a></h4>
-            </div>
+        <div class="footer-floor">
+          <div class="row-fluid">
+              <div class="span4">
+                  <span class="socialNetworks">Nas redes sociais:&nbsp;</span>
+                  <a href="#"><img src="@routes.Assets.at("images/glyphicons/glyphicons_390_facebook.png")"/></a>
+                  <a href="#"><img src="@routes.Assets.at("images/glyphicons/glyphicons_390_facebook.png")"/></a>
+                  <a href="#"><img src="@routes.Assets.at("images/glyphicons/glyphicons_390_facebook.png")"/></a>
+                  <a href="#"><img src="@routes.Assets.at("images/glyphicons/glyphicons_390_facebook.png")"/></a>
+              </div>
+              <div class="span4 footer-contacts">
+                  <i class="icon-headphones icon-white"></i> <small>91 999 99 99</small> &nbsp;<span>  /  </span>&nbsp;&nbsp;<i class="icon-headphones icon-white"></i> <small>91 999 99 99</small> &nbsp;<span>  /  </span>&nbsp;&nbsp;<i class="icon-headphones icon-white"></i> <small>91 999 99 99</small>
+              </div>
+              <div class="span4">
+                  <p class="pull-right"><i class="icon-envelope icon-white"></i> <a href="#">Envie-nos um email</a></p>
+              </div>
           </div>
-      </div>
+        </div>

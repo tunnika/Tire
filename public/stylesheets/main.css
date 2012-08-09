@@ -1,6 +1,6 @@
-body
+html,body
 {
-	margin-bottom: 0px;
+
 }
 
 div.content-center
@@ -125,39 +125,62 @@ footer.container.navbar-fixed-top {
 }
 
 .pull-bottom{
-    right: 0;
-    left: 0;
     position: relative;
-    margin-top: -92px; /* negative value of footer height */
-    height: 92px;
-    clear:both;
 }
 
-.footer-row{
-    padding-left: 20px;
-    padding-right: 20px;
+.clearfooter {
+    /*height: 5px;*/
+    clear: both;
+    height: 32px;
+}
+
+.footer-floor{
+    padding: 16px;
+    /*padding-right: 20px;*/
     background-color: #333;
-    padding-top: 10px;
+    -moz-box-shadow: 0 0 15px 0 #888;
+    -webkit-box-shadow: 0 0 15px 0 #888;
+    box-shadow: 0 0 15px 0 #888;
 }
 
-.outerContainer{
-    min-height: 100%;
-}
-
+/*
 .container{
-    overflow:auto;
-    padding-bottom: 92px;
-}
+    min-height: 100%;
+    margin-bottom: -45px;
+    position: relative;
+}*/
 
 .user-welcome {
     padding: 10px 10px 11px 0px;
 }
 
-.socialNetworks{
+.contactsMainScreen{
+    padding: 10px 30px 1px 30px;
+}
+
+.contactsDetails{
+
+}
+
+.contactsLocal{
+
+}
+
+.socialNetworks,.footer-contacts{
     color:#F0F0F0;
 }
 
+.socialNetworksImageContainer{
+    display: inline-block;
+}
 
+.socialNetworksImage{
+    padding-top: 3px;
+}
+
+.contactsDetails h5{
+    padding-left: 5px;
+}
 
     .result-tire{
         padding-top:5px;
