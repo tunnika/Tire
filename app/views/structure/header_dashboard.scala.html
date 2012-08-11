@@ -1,16 +1,29 @@
-@(user:String)
+@(user:User)
+
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
             <a class="brand" href="/">@Messages("brand.name")</a>
             <div class="nav-collapse collapse">
-                <ul class="nav">
+                <ul class="nav" id="main-menu">
                     <li class="">
-                        <a href="#">Página Principal</a>
+                        <a href="#/">Página Principal</a>
                     </li>
-                    <li class="">
-                        <a href="#">As minhas encomendas</a>
-                    </li>
+                    @if(user.powerUser){
+                        <li class="">
+                            <a href="#/encomendas">Encomendas</a>
+                        </li>
+                        <li class="">
+                            <a href="#/stock">Stock</a>
+                        </li>
+                        <li class="">
+                            <a href="#/membros">Membros</a>
+                        </li>
+                    }else{
+                        <li class="">
+                            <a href="#">As minhas encomendas</a>
+                        </li>
+                    }
                 </ul>
             </div>
             <div class="pull-right">
@@ -22,7 +35,7 @@
             </div>
             <div class="pull-right">
                 <div class="user-welcome">
-                   <span> Olá <a href="">@user</a></span>
+                   <span> Olá <a href="">@user.name</a></span>
                 </div>
             </div>
         </div>

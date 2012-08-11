@@ -4,7 +4,7 @@
 @implicitFieldConstructor = @{ FieldConstructor(helper.bootst.render) }
 
 @layout("Welcome to Norpneu"){
-    @structure.header_dashboard(user.email)
+    @structure.header_dashboard(user)
 } {
     @if(flash.contains("success")) {
         <div class="alert alert-success">

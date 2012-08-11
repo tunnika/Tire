@@ -23,13 +23,15 @@ POST    /register/change-password   controllers.Application.changePasswordAction
 POST    /tire/search                controllers.Dashboard.search()
 
 # admin
+GET     /admin/index                controllers.Admin.index()
 GET     /admin/approve-account      controllers.Admin.approveAccount(email)
+GET		/admin/users				controllers.Admin.users()
 
 #Json stuff
-GET		/users						controllers.Application.allUserJson()
 GET		/tires						controllers.Dashboard.allTireJson()
 
 GET		/Tire.ms					controllers.Dashboard.tireTemplate()
+GET		/Dashboard-home.ms			controllers.Dashboard.dashboardHomeTemplate()
 
 
 # Javascript routing

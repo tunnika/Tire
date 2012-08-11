@@ -11,7 +11,8 @@ import play.mvc.Result;
 import play.mvc.Security;
 import views.html.dashboard;
 import views.html.search_results;
-import views.html.tire;
+import views.html.templates.tire;
+import views.html.templates.dashboard_home;
 
 import java.io.IOException;
 import java.util.List;
@@ -78,7 +79,12 @@ public class Dashboard extends Controller {
     }
 	
 	@Cached(key = "tireTemplate")
-    public static Result tireTemplate(){
-		return ok(tire.render());
-	}
+         public static Result tireTemplate(){
+        return ok(tire.render());
+    }
+
+    @Cached(key = "tmplDashboardHome")
+    public static Result dashboardHomeTemplate(){
+        return ok(dashboard_home.render());
+    }
 }

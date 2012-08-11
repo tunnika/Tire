@@ -1,6 +1,5 @@
 package controllers;
 
-import com.avaje.ebean.Ebean;
 import models.User;
 import play.mvc.Http.Context;
 import play.mvc.Result;
@@ -12,7 +11,7 @@ public class AdminLock extends Security.Authenticator {
     public String getUsername(Context ctx) {
         String user =ctx.session().get("email");
         if(user!=null) {
-            User u = Ebean.find(User.class).where().eq("email", user).findUnique();
+            User u = User.find.where().eq("email", user).findUnique();
             if(u!=null && u.powerUser)
                 return user;
         }

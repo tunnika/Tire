@@ -9,8 +9,9 @@ users:
         password:   secret
         active:     true
         powerUser:  false
-        company:    cenas
+        company:    Pneus Duarte
         phoneNumber: 937744118
+        street: "Lugar do Montinho, Rua 8, n.7 4730-240 Lage"
     
     - !!models.User
         email:      ruben_joane@hotmail.com
@@ -27,7 +28,29 @@ users:
         password:   secret
         active:     true
         powerUser:  false
+        company:    Pneus Duarte
         phoneNumber: 937744115
+        street: "Lugar do Montinho, Rua 8, n.7 4730-240 Lage"
+
+    - !!models.User
+        email:      kimile@gmail.com
+        name:       Joaquim Rego
+        password:   secret
+        active:     true
+        powerUser:  false
+        company:    Pneus Feliz
+        phoneNumber: 937744115
+        street: "Largo Sousa Lima, n. 22 Prado 4730-4750"
+
+    - !!models.User
+        email:      francisco@ofeliz.pt
+        name:       Francisco Rego
+        password:   secret
+        active:     true
+        powerUser:  false
+        company:    Pneus Feliz
+        phoneNumber: 937744115
+        street: "Largo Sousa Lima, n. 22 Prado 4730-4750"
 
 brands:
     - !!models.norpneu.Brand
