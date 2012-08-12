@@ -1,13 +1,15 @@
 @()
-<div class="well result-tire" data-brand="{{brand.name}}" data-price="{{price}}" data-id="{{id}}" data-measure="{{measure}}">
-                    
-    <div class="stock">{{stockUnitsAvailable}} un. disponíveis</div>
-    <div class="brand">{{brand.name}}</div>
+<script id="tireTemplate" type="text/html">
+    <li class="well result-tire" data-brand="{{brand.name}}" data-price="{{price}}" data-id="{{id}}" data-measure="{{measure}}">
 
-    <div class="price"><h2>{{price}}€</h2></div>
-    <div class="measure"><h2><a href="#">{{measure}}</a></h2></div>
+        <div class="stock">{{stockUnitsAvailable}} un. disponíveis</div>
+        <div class="brand">{{brand.name}}</div>
 
-    <div class="attributes">{{speedIndex}}</div>
-    <div class="order"><a href="#">Encomendar</a></div>
+        <div class="price"><h2>{{price}}€</h2></div>
+        <div class="measure"><h2><a href="#">{{measure}}</a></h2></div>
 
-</div>
+        <div class="attributes">{{speedIndex}}</div>
+        <div class="order"><a href="#">Encomendar</a></div>
+
+    </li>
+</script>

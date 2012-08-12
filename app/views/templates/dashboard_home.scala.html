@@ -1,44 +1,67 @@
 @()
-<div class="content-center">
-    <div class="row-fluid">
-        <div class="span12">
-            <h2>Pesquisa de Pneus</h2>
+<script id="dashboardHomeTemplate" type="text/html">
+    <div class="content-center">
+        <div class="row-fluid">
+            <div class="span12">
+                <h2>Pesquisa de Pneus</h2>
+            </div>
         </div>
-    </div>
-    <div class="row-fluid">
-        <div class="span12">
-            @helper.form(routes.Dashboard.search) {
-            <input type="text" name="searchQuery" class="input-xxlarge search-query"
-                   placeholder='@Messages("search.placeholder")'>
-            <button type="submit" class="btn" id="submit-search">Pesquisar</button>
-            }
+        <div class="row-fluid">
+            <div class="span12">
+                @helper.form(routes.Dashboard.search) {
+                <input type="text" name="searchQuery" class="input-xxlarge search-query"
+                       placeholder='@Messages("search.placeholder")'>
+                <button type="submit" class="btn" id="submit-search">Pesquisar</button>
+                }
+            </div>
         </div>
-    </div>
-    <div class="row-fluid">
+        <div class="row-fluid">
 
-        <div class="span12" id="tiresContainer">
-            <p class="marketing-byline">
-                <a id="searchAllTires" href="#/alltires">Ver todos os pneus</a>
-            </p>
-        </div>
-    </div>
-</div>
-<div class="row-fluid">
-    <div id="filterContainer" class="well" style="display:none">
-        <h3>Filtros</h3>
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span12" id="filter-slider-range-label">
-                    <p>
-                        <label for="amount">Intervalo de preços:</label>
-                        <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
-                    </p>
-                </div>
-                <div class="span12" id="filter-slider-range"></div>
+            <div class="span12" id="tiresContainer">
+                <p class="marketing-byline">
+                    <a id="searchAllTires" href="#/alltires">Ver todos os pneus</a>
+                </p>
             </div>
         </div>
     </div>
-    <div class="span12" id="results">
+    <div class="row-fluid">
+        <div id="filterContainer" class="well" style="display:none">
+            <h3>Filtros</h3>
+            <div class="row-fluid">
+                <div class="span12" class="filterMarcaContainer">
+                    <form id="filterMarca">
+                        <fieldset>
+                            <legend>Marca</legend>
+                            <label><input type="radio" name="brand" value="all" checked="checked">Todos</label>
+                            <label><input type="radio" name="brand" value="Yokohama">Yokohama</label>
+                            <label><input type="radio" name="brand" value="Michellin">Michellin</label>
+                            <label><input type="radio" name="brand" value="Good Year">Good Year</label>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Preço</legend>
+                            <label><input type="radio" name="price" value="all" checked="checked">Todos</label>
+                            <label><input type="radio" name="price" value="0-50">0-50</label>
+                            <label><input type="radio" name="price" value="51-60">51-60</label>
+                            <label><input type="radio" name="price" value="61-70">61-70</label>
+                            <label><input type="radio" name="price" value="71-80">71-80</label>
+                            <label><input type="radio" name="price" value="81-90">81-90</label>
+                            <label><input type="radio" name="price" value="91-100">91-100</label>
+                            <label><input type="radio" name="price" value="101-110">101-110</label>
+                            <label><input type="radio" name="price" value="111+">Mais de 111</label>
+                            <label><input type="radio" name="price" value="other">Outro</label>
+                        </fieldset>
+                        <fieldset>
+                            <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
+                            <div style="width:100%;" class="filter-slider-range"></div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+            <h3>Ordenar por:</h3>
+        </div>
+        <div class="span10">
+            <ul id="results-tires"></ul>
+        </div>
+        <div id="cartContainer"></div>
     </div>
-    <div id="cartContainer"></div>
-</div>
+</script>
