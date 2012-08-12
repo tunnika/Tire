@@ -1,0 +1,27 @@
+#results-tires{
+    list-style: none;
+}
+
+input[type="image"], input[type="checkbox"], input[type="radio"] {
+    float: left;
+    margin-right: 10px;
+}
+
+fieldset {
+    padding: 1em;
+    font:80%/1 sans-serif;
+}
+label {
+    float:left;
+    width:100%;
+    margin-right:0.5em;
+    padding-top:0.2em;
+    text-align:left;
+    font-weight:bold;
+}
+
+legend {
+    margin-bottom: 0px;
+    line-height: 18px;
+    font-size: 16px;
+}
