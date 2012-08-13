@@ -25,7 +25,9 @@ POST    /tire/search                controllers.Dashboard.search()
 # admin
 GET     /admin/index                controllers.Admin.index()
 GET     /admin/approve-account      controllers.Admin.approveAccount(email)
+GET     /admin/decline-account      controllers.Admin.declineAccount(email)
 GET		/admin/users				controllers.Admin.users()
+GET		/admin/user-requests		controllers.Admin.userRequests()
 
 #Json stuff
 GET		/tires						controllers.Dashboard.allTireJson()

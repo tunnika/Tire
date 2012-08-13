@@ -78,7 +78,7 @@ public class User extends Model {
     @Constraints.Required
     public boolean powerUser = false;
 
-    public Timestamp registryDate;
+    public Timestamp registryDate = new Timestamp(System.currentTimeMillis());
 
     public Timestamp activeDate;
 
