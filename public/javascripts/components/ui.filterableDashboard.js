@@ -33,8 +33,6 @@
             // matchProperty:"",
             // values:[], // If values are provided it won't calculate max and min values
             // step:10, // The step to be applied from each range
-            // min:0 //the minimum value
-            // max: 100 //the maximum value
             // includeLessThan: undefined //if the defined as value, the first value will be less than
             // includeMoreThan: undefined //if the defined as values, the last value will be more than
             // includeAllOption:true, //Will provide a All option as first option (if non-unique, will deselect all others)
@@ -66,6 +64,84 @@
             });
             return $inputRadioLabel;
 
+        }
+
+        var $renderRanges = function ($container, globalProperties, rangesProperties) {
+            //CREATE THE ROOT ELEMENT -  FIELDSET and the TITLE
+            var $rangesDOM = $renderFieldSet(rangesProperties.filterId, rangesProperties.title);
+
+            //IF IT HAS THE ALL OPTION ADD IT
+            if (rangesProperties.includeAllOption) {
+                $renderInputRadioDom(rangesProperties, $rangesDOM, rangesProperties.filterId, allToken, "Todos", true).appendTo($rangesDOM);
+                if (rangesProperties.values && rangesProperties.values && typeof rangesProperties.values == 'array') {
+                    $.each(histProperties.values, function (i, value) {
+                        var valueFormatted = value;
+                        if (rangesProperties.valueFormatter && typeof rangesProperties.valueFormatter == 'function')
+                            valueFormatted = rangesProperties.valueFormatter(value);
+                        $renderInputRadioDom(rangesProperties, $rangesDOM, histProperties.filterId, value, valueFormatted, false).appendTo($rangesDOM);
+                    });
+                } else {
+                    //NEED TO CALC MIN, MAX AND RANGES
+
+                    var min = -999999;
+                    var max = 0;
+                    var matchPropertyArr = rangesProperties.matchProperty.split(".");
+                    $.each(globalProperties.data, function (i, valueObject) {
+                        var currValue = 0;
+                        //if multilevel match property
+                            if (matchPropertyArr.length > 1) {
+                                currValue = valueObject;
+                                //traverse all the object hierarchy
+                                for (var i = 0; i < matchPropertyArr.length; i++) {
+                                    currValue = currValue[matchPropertyArr[i]];
+                                }
+                            } else {
+                                //return immediate match
+                                currValue = Number(valueObject[rangesProperties.matchProperty]);
+                            }
+                        if (min == -999999)
+                            min = currValue;
+                        //verify min and max
+                        if (currValue > max)
+                            max = currValue;
+                        if (currValue < min)
+                            min = currValue;
+                    });
+                    //CALCULATE RANGES AND PUSH IT TO THE ranges ARRAY´
+                    var ranges = [];
+                    var currRangeMax = 0;
+                    //HAS LESS THAN
+                    if (rangesProperties.includeLessThan != undefined) {
+                        ranges.push('<' + Number(rangesProperties.includeLessThan));
+                        min = rangesProperties.includeLessThan;
+                        currRangeMax = min;
+                    } else {
+                        ranges.push(""+min + "-" + Number(min + rangesProperties.step));
+                        currRangeMax = Number(min + rangesProperties.step);
+                    }
+                    //ALL THE OTHER RANGES
+                    /*if (currRangeMax + 1 + rangesProperties.step < max) {
+                        while (currRangeMax < max) {
+                            ranges.push((currRangeMax + 1) + "-" + ((currRangeMax + 1) + rangesProperties.step));
+                            currRangeMax = ((currRangeMax + 1) + rangesProperties.step);
+                        }
+                    }*/
+                    //HAS MORE THAN
+                    if (rangesProperties.includeMoreThan != undefined) {
+                        ranges.push("+" + Number(rangesProperties.includeMoreThan));
+                    } else {
+                        ranges.push(Number(currRangeMax + 1) + "-" + max);
+                    }
+                    //RENDER DOM OPTIONS
+                    $.each(ranges.sort(), function (i, value) {
+                        var valueFormatted = value;
+                        if (rangesProperties.valueFormatter && typeof rangesProperties.valueFormatter == 'function')
+                            valueFormatted = rangesProperties.valueFormatter(value);
+                        $renderInputRadioDom(rangesProperties, $rangesDOM, rangesProperties.filterId, value, valueFormatted, false).appendTo($rangesDOM);
+                    });
+                }
+            }
+            return $rangesDOM;
         }
 
         var $renderHistogram = function ($container, globalProperties, histProperties) {
@@ -168,6 +244,9 @@
                 if (filterProps.filterType == 'histogram') {
                     var $histogram = $renderHistogram($rootFilterContent, props, filterProps);
                     $histogram.appendTo($rootFilterContent)
+                } else if (filterProps.filterType == 'ranges') {
+                    var $ranges = $renderRanges($rootFilterContent, props, filterProps);
+                    $ranges.appendTo($rootFilterContent)
                 }
             });
             var filteredData = [];
@@ -199,22 +278,72 @@
                             currentData = filterElems(currentData, handledObject.props.compareFunction, handledObject.value, null);
                         } else {
                             currentData = filterElems(currentData, function (objToCompare, value) {
-                                var currValue = "";
-                                var matchPropertyArr = handledObject.props.matchProperty.split(".");
-                                //if multilevel match property
-                                if (matchPropertyArr.length > 1) {
-                                    currValue = objToCompare;
-                                    //traverse all the object hierarchy
-                                    for (var i = 0; i < matchPropertyArr.length; i++) {
-                                        currValue = currValue[matchPropertyArr[i]];
+
+                                //IF IS HISTOGRAM
+                                if (handledObject.props.filterType == 'histogram') {
+                                    var currValue = "";
+                                    var matchPropertyArr = handledObject.props.matchProperty.split(".");
+                                    //if multilevel match property
+                                    if (matchPropertyArr.length > 1) {
+                                        currValue = objToCompare;
+                                        //traverse all the object hierarchy
+                                        for (var i = 0; i < matchPropertyArr.length; i++) {
+                                            currValue = currValue[matchPropertyArr[i]];
+                                        }
+                                    } else {
+                                        //return immediate match
+                                        currValue = String(objToCompare[handledObject.props.matchProperty]);
                                     }
-                                } else {
-                                    //return immediate match
-                                    currValue = String(objToCompare[handledObject.props.matchProperty]);
+                                    if (currValue == value)
+                                        return true;
+                                    return false;
+                                } else if (handledObject.props.filterType == 'ranges') {
+                                    var currValue = -99999999;
+                                    var matchPropertyArr = handledObject.props.matchProperty.split(".");
+                                    //if multilevel match property
+                                    if (matchPropertyArr.length > 1) {
+                                        currValue = objToCompare;
+                                        //traverse all the object hierarchy
+                                        for (var i = 0; i < matchPropertyArr.length; i++) {
+                                            currValue = currValue[matchPropertyArr[i]];
+                                        }
+                                    } else {
+                                        //return immediate match
+                                        currValue = Number(objToCompare[handledObject.props.matchProperty]);
+                                    }
+
+                                    var hasMax = false;
+                                    var hasMin = false;
+                                    var minValue = 0;
+                                    var maxValue = 99999999;
+                                    if (handledObject.name.indexOf('+') >= 0) {
+                                        minValue = value.split("+")[0];
+                                        hasMin = true;
+                                    } else if (handledObject.name.indexOf('<') >= 0) {
+                                        maxValue = value.split("<")[0];
+                                        hasMax = true;
+                                    } else if (handledObject.name == 'other') {
+                                        /*$('.filterRangeSlider').show();
+                                         hasMax = true;
+                                         minValue = $(".filter-slider-range").slider("values", 0);
+                                         maxValue = $(".filter-slider-range").slider("values", 1);
+                                         console.log("OTHER", minValue, maxValue);*/
+                                    } else {
+                                        hasMax = true;
+                                        hasMin = true;
+                                        minValue = value.split("-")[0];
+                                        maxValue = value.split("-")[1];
+                                    }
+
+                                    if (hasMax && hasMin) {
+                                        if (currValue >= minValue && currValue <= maxValue) return true
+                                    } else if (!hasMax && hasMin) {
+                                        if (currValue >= minValue) return true;
+                                    } else if (!hasMin && hasMax) {
+                                        if (currValue <= maxValue) return true;
+                                    }
+                                    return false;
                                 }
-                                if (currValue == value)
-                                    return true;
-                                return false;
                             }, handledObject.value, null);
                         }
                     }
