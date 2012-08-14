@@ -47,8 +47,8 @@
                 easing:'easeInOutQuad'},
             "sortFunction":undefined //Sort function to be applied on data
         };
-
-        var $renderFieldSet = function(id,title){
+        var allToken = "c0mputedAll";
+        var $renderFieldSet = function (id, title) {
             //CREATE THE ROOT ELEMENT -  FIELDSET
             var $fieldset = $('<fieldset id="' + id + 'fieldset"/>');
             //ADD THE TITLE
@@ -56,13 +56,13 @@
             return $fieldset;
         }
 
-        var $renderInputRadioDom = function(props,$parent,name,value,label,checked){
-            var $inputRadio = $('<input type="radio" name="' + name + 'field" value="'+value+'" '+(checked==true?' checked="checked"':'')+'>');
+        var $renderInputRadioDom = function (props, $parent, name, value, label, checked) {
+            var $inputRadio = $('<input type="radio" name="' + name + 'field" value="' + value + '" ' + (checked == true ? ' checked="checked"' : '') + '>');
             var $inputRadioLabel = $('<label></label>');
             $inputRadio.appendTo($inputRadioLabel);
             $inputRadioLabel.append(label);
-            $inputRadio.change(function(evt){
-                $parent.trigger('changeFilter',{props:props,name:name,value:value,label:label});
+            $inputRadio.change(function (evt) {
+                $parent.trigger('changeFilter', {props:props, name:name, value:value, label:label});
             });
             return $inputRadioLabel;
 
@@ -70,11 +70,11 @@
 
         var $renderHistogram = function ($container, globalProperties, histProperties) {
             //CREATE THE ROOT ELEMENT -  FIELDSET and the TITLE
-            var $histogramDOM = $renderFieldSet(histProperties.filterId,histProperties.title);
+            var $histogramDOM = $renderFieldSet(histProperties.filterId, histProperties.title);
 
             //IF IT HAS THE ALL OPTION ADD IT
             if (histProperties.includeAllOption) {
-                $renderInputRadioDom(histProperties,$histogramDOM,histProperties.filterId,"all","Todos",true).appendTo($histogramDOM);
+                $renderInputRadioDom(histProperties, $histogramDOM, histProperties.filterId, allToken, "Todos", true).appendTo($histogramDOM);
             }
             //IF THE LIST OF VALUES IS ARGUMENT
             if (histProperties.values && histProperties.values && typeof histProperties.values == 'array') {
@@ -82,7 +82,7 @@
                     var valueFormatted = value;
                     if (histProperties.valueFormatter && typeof histProperties.valueFormatter == 'function')
                         valueFormatted = histProperties.valueFormatter(value);
-                    $renderInputRadioDom(histProperties,$histogramDOM,histProperties.filterId,value,valueFormatted,false).appendTo($histogramDOM);
+                    $renderInputRadioDom(histProperties, $histogramDOM, histProperties.filterId, value, valueFormatted, false).appendTo($histogramDOM);
                 });
             } else {
                 //NEED TO CALCULATE THE UNIQUE VALUES
@@ -97,7 +97,7 @@
                         currValue = valueObject;
                         //traverse all the object hierarchy
                         for (var i = 0; i < matchPropertyArr.length; i++) {
-                                currValue = currValue[matchPropertyArr[i]];
+                            currValue = currValue[matchPropertyArr[i]];
                         }
                     } else {
                         //return immediate match
@@ -107,17 +107,17 @@
                     if ($.inArray(currValue, uniqueValues) < 0) {
                         uniqueValues.push(currValue);
                         if (histProperties.valueDataFormatter && typeof histProperties.valueDataFormatter == 'function')
-                         uniqueValuesObjects.push(valueObject);
+                            uniqueValuesObjects.push(valueObject);
                     }
                 });
                 //For each unique value render it's option
-                $.each(uniqueValues.sort(),function(i,value){
+                $.each(uniqueValues.sort(), function (i, value) {
                     var valueFormatted = value;
                     if (histProperties.valueFormatter && typeof histProperties.valueFormatter == 'function')
                         valueFormatted = histProperties.valueFormatter(value);
                     else if (histProperties.valueDataFormatter && typeof histProperties.valueDataFormatter == 'function')
                         valueFormatted = histProperties.valueDataFormatter(uniqueValuesObjects[i]);
-                    $renderInputRadioDom(histProperties,$histogramDOM,histProperties.filterId,value,valueFormatted,false).appendTo($histogramDOM);
+                    $renderInputRadioDom(histProperties, $histogramDOM, histProperties.filterId, value, valueFormatted, false).appendTo($histogramDOM);
                 });
             }
             return $histogramDOM;
@@ -133,14 +133,23 @@
             if (arr !== undefined) {
                 $.each(arr, function (i, loadedObj) {
                     if (filterFunc !== null || filterFunc != undefined) {
-                        if (filterFunc(loadedObj,filterValue)) {
-                            var $rendered = $renderDataElement(loadedObj,props.dataRenderingItemTemplate);
-                            res.push($rendered);
+                        if (filterFunc(loadedObj, filterValue)) {
+                            res.push(loadedObj);
                         }
                     } else {
-                        var $rendered = $renderDataElement(loadedObj,props.dataRenderingItemTemplate);
-                        res.push($rendered);
+                        res.push(loadedObj);
                     }
+                });
+            }
+            return res;
+        }
+
+        var renderElements = function (arr) {
+            var res = [];
+            if (arr !== undefined) {
+                $.each(arr, function (i, loadedObj) {
+                    var $rendered = $renderDataElement(loadedObj, props.dataRenderingItemTemplate);
+                    res.push($rendered);
                 });
             }
             return res;
@@ -155,45 +164,63 @@
 
             var $rootFilterContent = $('<form id="' + props.id + 'form"/>');
             $rootFilterContent.appendTo($parentFilter);
-            $.each(props.filters,function(i,filterProps){
-                if(filterProps.filterType == 'histogram'){
-                    var $histogram = $renderHistogram($rootFilterContent,props,filterProps);
+            $.each(props.filters, function (i, filterProps) {
+                if (filterProps.filterType == 'histogram') {
+                    var $histogram = $renderHistogram($rootFilterContent, props, filterProps);
                     $histogram.appendTo($rootFilterContent)
                 }
             });
             var filteredData = [];
-            var currentFilters = [];
-            filteredData = filterElems(props.data,null,null,null);
+            var currentFilters = {};//filterId => {eventHandledObject}
+            var counterCurrentFilters = 0;
+            filteredData = renderElements(props.data);
             $parentData.quicksand(filteredData, props.quicksandProps);
-            $rootFilterContent.bind('changeFilter',function(evt,handledObject){
-                console.log('bind','rootFilterContent','changeFilter',handledObject);
-                //TODO USE CURRENT FILTERS TO USE MULTIPLE
-                if(handledObject.value!='all'){
-                    if(handledObject.props.compareFunction && typeof handledObject.props.compareFunction=="function")
-                        filteredData = filterElems(props.data,handledObject.props.compareFunction,handledObject.value,null);
-                    else
-                        filteredData = filterElems(props.data,function(objToCompare,value){
-                            var currValue = "";
-                            var matchPropertyArr = handledObject.props.matchProperty.split(".");
-                            //if multilevel match property
-                            if (matchPropertyArr.length > 1) {
-                                currValue = objToCompare;
-                                //traverse all the object hierarchy
-                                for (var i = 0; i < matchPropertyArr.length; i++) {
-                                    currValue = currValue[matchPropertyArr[i]];
-                                }
-                            } else {
-                                //return immediate match
-                                currValue = String(objToCompare[handledObject.props.matchProperty]);
-                            }
-                            if(currValue==value)
-                                return true;
-                            return false;
-                        },handledObject.value,null);
+            $rootFilterContent.bind('changeFilter', function (evt, handledObject) {
+                console.log('bind', 'rootFilterContent', 'changeFilter', handledObject);
+                console.log(handledObject.props.filterId);
 
-                }else{
-                    filteredData = filterElems(props.data,null,null,null);
+                if (handledObject.value == allToken) {
+                    delete currentFilters[handledObject.props.filterId];
+                    counterCurrentFilters--;
+                } else {
+                    if (!currentFilters.hasOwnProperty(handledObject.props.filterId))
+                        counterCurrentFilters++;
+                    currentFilters[handledObject.props.filterId] = handledObject;
                 }
+
+                //RESET TO ALL ELEMENTS
+                //filteredData = filterElems(props.data, null, null, null);
+                var currentData = props.data;
+                //ITERATE AND APPLY CURRENT FILTERS
+                if (counterCurrentFilters > 0) {
+                    for (var filterId in currentFilters) {
+                        var handledObject = currentFilters[filterId];
+                        if (handledObject.props.compareFunction && typeof handledObject.props.compareFunction == "function") {
+                            currentData = filterElems(currentData, handledObject.props.compareFunction, handledObject.value, null);
+                        } else {
+                            currentData = filterElems(currentData, function (objToCompare, value) {
+                                var currValue = "";
+                                var matchPropertyArr = handledObject.props.matchProperty.split(".");
+                                //if multilevel match property
+                                if (matchPropertyArr.length > 1) {
+                                    currValue = objToCompare;
+                                    //traverse all the object hierarchy
+                                    for (var i = 0; i < matchPropertyArr.length; i++) {
+                                        currValue = currValue[matchPropertyArr[i]];
+                                    }
+                                } else {
+                                    //return immediate match
+                                    currValue = String(objToCompare[handledObject.props.matchProperty]);
+                                }
+                                if (currValue == value)
+                                    return true;
+                                return false;
+                            }, handledObject.value, null);
+                        }
+                    }
+                }
+                filteredData = renderElements(currentData);
+
                 $parentData.quicksand(filteredData, props.quicksandProps);
             });
         };
@@ -208,13 +235,17 @@
             draw();
         }
     };
-    var global = (function(){ return this || (0,eval)('this'); }());
+    var global = (function () {
+        return this || (0, eval)('this');
+    }());
 
-        if (typeof module !== 'undefined' && module.exports) {
-            module.exports = FilterableDashboard;
-        } else if (typeof define === 'function' && define.amd) {
-            define(function(){return FilterableDashboard;});
-        } else {
-            global.FilterableDashboard = FilterableDashboard;
-        }
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = FilterableDashboard;
+    } else if (typeof define === 'function' && define.amd) {
+        define(function () {
+            return FilterableDashboard;
+        });
+    } else {
+        global.FilterableDashboard = FilterableDashboard;
+    }
 })(jQuery);
