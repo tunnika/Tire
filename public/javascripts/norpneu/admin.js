@@ -19,7 +19,7 @@
                     var $container = $layout.find('[ui-id=member-requests]');
                     var widget = new CollapsibleLayers({
                         data:response.data,
-                        header:{},
+                        header:{"search_hint": "procurar por nome ou empresa" },
                         $container:$container,
                         template:function (level) {
                             switch (level) {
@@ -97,7 +97,7 @@
                     widget.addSort($container.find('[ui-id=sort-by-company]'), 'company');
                     var $input = $container.find('[ui-id=find]');
                     $input.keyup(function (e) {
-                        widget.filter(['company', 'name'], $input.val());
+                        widget.filter(['company'], $input.val());
                     });
                 });
 
@@ -125,6 +125,7 @@
 
                     var widget = new CollapsibleLayers({
                         data:response.data,
+                        header:{"search_hint": "procurar por nome ou empresa" },
                         $container:$container,
                         template: grabTemplate,
                         template_helpers: function(){
@@ -172,14 +173,14 @@
                             return result;
                         },
                         onAfterSort: function(){
-                            this.setTemplate(grabTemplate);
+                            //this.setTemplate(grabTemplate);
                         }
                     });
                     widget.addSort($container.find('[ui-id=sort-by-name]'), 'name');
                     widget.addSort($container.find('[ui-id=sort-by-company]'), 'company');
                     var $input = $container.find('[ui-id=find]');
                     $input.keyup(function (e) {
-                        widget.filter(['company'], $input.val());
+                        widget.filter(['company', '_children.name'], $input.val());
                     });
                 });
         });

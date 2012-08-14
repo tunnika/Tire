@@ -11,7 +11,7 @@
             "toggle_expand": "expand",
             "toggle_selector": "i",
             "row_selector": "[ui-data=row]",
-            "template_helpers": function(){return {}},
+            "template_helpers": {},
             "onDataLengthChange": function(){},
             "onBeforeSort": function(){},
             "onAfterSort": function(){}
@@ -218,7 +218,7 @@
          * @param properties {Array|String}  array or string with the property name to be used as filter
          * @param value      {String}        the value to be used as the sort value
          */
-        this.filter = function(properties, value){
+        this.filter = function (properties, value) {
             if(!value || value.length==0){
                 self.refresh(self.data());
                 return;
@@ -226,20 +226,65 @@
             if (!$.isArray(properties)) {
                 properties = [properties];
             }
-            var fn = '';
-            for (var i = 0, ilen = properties.length; i < ilen; i++) {
-                fn+='if(expression.test(data.'+properties[i]+')){return true}';
-            }
-
-            var match = new Function(['expression','data'], fn)
-                , results = []
-                , regex = new RegExp(value,'i');
-            var data = self.data();
-            for (var i = 0, ilen = data.length; i < ilen; i++) {
-                if(match(regex, data[i])){
-                    results.push(data[i]);
+            // create support metadata for recursion to don't go further then needed
+            // meta.max = maximum number of levels
+            // meta[level] = [ array, of, values, per, level ]
+            var parts
+                , meta = {max:1};
+            for (var p = 0, plen = properties.length; p < plen; p++) {
+                // get level
+                parts = properties[p].split('.');
+                if (!meta[parts.length]) {
+                    meta[parts.length] = [];
+                }
+                meta[parts.length].push(parts[parts.length - 1]);
+                // check if max should be increased
+                if (parts.length > meta.max) {
+                    meta.max = parts.length;
                 }
             }
+            // traverse levels and match value
+            var traverse = function (data, level, results) {
+                if(level > meta.max) return;
+
+                var fn = ''
+                    , properties = meta[level]
+                    , i
+                    , ilen
+                    , added = false;
+
+                for (i = 0, ilen = properties.length; i < ilen; i++) {
+                    fn+='if(expression.test(data.'+properties[i]+')){return true}';
+                }
+
+                var match = new Function(['expression','data'], fn)
+                    , regex = new RegExp(value,'i');
+
+                for (i = 0, ilen = data.length; i < ilen; i++) {
+                    if (match(regex, data[i])) {
+                        results.push(data[i]);
+                        added = true;
+                    } else {
+                        added = false;
+                    }
+                    if (data[i]._children && data[i]._children.length > 0) {
+                        var children = [];
+                        traverse(data[i]._children, level+1, children);
+                        // check if parent should also be included (if it wasn't yet)
+                        // to avoid orphans in view
+                        if (children.length > 0) {
+                            if (!added) {
+                                results.push(data[i]);
+                            }
+                            results[results.length-1]._children = children;
+                        }
+
+                    }
+                }
+            };
+            var results = [];
+            traverse(self.data(), 1, results);
+
             self.refresh(results);
         };
 
