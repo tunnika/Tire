@@ -120,12 +120,12 @@
                         currRangeMax = Number(min + rangesProperties.step);
                     }
                     //ALL THE OTHER RANGES
-                    /*if (currRangeMax + 1 + rangesProperties.step < max) {
-                        while (currRangeMax < max) {
-                            ranges.push((currRangeMax + 1) + "-" + ((currRangeMax + 1) + rangesProperties.step));
-                            currRangeMax = ((currRangeMax + 1) + rangesProperties.step);
+                    if ((currRangeMax + 1 + rangesProperties.step) < max) {
+                        while (currRangeMax + 1 + rangesProperties.step < max) {
+                            ranges.push((currRangeMax + 1) + "-" + ((currRangeMax + 1) + (rangesProperties.step-1)));
+                            currRangeMax = ((currRangeMax + 1) + (rangesProperties.step-1));
                         }
-                    }*/
+                    }
                     //HAS MORE THAN
                     if (rangesProperties.includeMoreThan != undefined) {
                         ranges.push("+" + Number(rangesProperties.includeMoreThan));
@@ -133,7 +133,7 @@
                         ranges.push(Number(currRangeMax + 1) + "-" + max);
                     }
                     //RENDER DOM OPTIONS
-                    $.each(ranges.sort(), function (i, value) {
+                    $.each(ranges, function (i, value) {
                         var valueFormatted = value;
                         if (rangesProperties.valueFormatter && typeof rangesProperties.valueFormatter == 'function')
                             valueFormatted = rangesProperties.valueFormatter(value);
@@ -204,7 +204,7 @@
             return $rendered[0];
         }
 
-        var filterElems = function (arr, filterFunc, filterValue, appliedSorts) {
+        var filterElems = function (arr, filterFunc, filterValue, appliedSort) {
             var res = [];
             if (arr !== undefined) {
                 $.each(arr, function (i, loadedObj) {
@@ -216,6 +216,10 @@
                         res.push(loadedObj);
                     }
                 });
+            }
+            if(appliedSort!=null && appliedSort!=undefined && typeof appliedSort =="function"){
+                console.log(res.sort(appliedSort));
+                return res.sort(appliedSort);
             }
             return res;
         }
@@ -252,7 +256,7 @@
             var filteredData = [];
             var currentFilters = {};//filterId => {eventHandledObject}
             var counterCurrentFilters = 0;
-            filteredData = renderElements(props.data);
+            filteredData = renderElements(filterElems(props.data,null,null,props.sortFunction));
             $parentData.quicksand(filteredData, props.quicksandProps);
             $rootFilterContent.bind('changeFilter', function (evt, handledObject) {
                 console.log('bind', 'rootFilterContent', 'changeFilter', handledObject);
@@ -269,13 +273,13 @@
 
                 //RESET TO ALL ELEMENTS
                 //filteredData = filterElems(props.data, null, null, null);
-                var currentData = props.data;
+                var currentData = filterElems(props.data, null, null, props.sortFunction);
                 //ITERATE AND APPLY CURRENT FILTERS
                 if (counterCurrentFilters > 0) {
                     for (var filterId in currentFilters) {
                         var handledObject = currentFilters[filterId];
                         if (handledObject.props.compareFunction && typeof handledObject.props.compareFunction == "function") {
-                            currentData = filterElems(currentData, handledObject.props.compareFunction, handledObject.value, null);
+                            currentData = filterElems(currentData, handledObject.props.compareFunction, handledObject.value, props.sortFunction);
                         } else {
                             currentData = filterElems(currentData, function (objToCompare, value) {
 
@@ -344,7 +348,7 @@
                                     }
                                     return false;
                                 }
-                            }, handledObject.value, null);
+                            }, handledObject.value, props.sortFunction);
                         }
                     }
                 }

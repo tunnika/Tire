@@ -42,6 +42,9 @@
                         "$filterDOMTarget":$('#filterContainer'), //DIV TARGET where the Filters will be placed
                         "$dataDOMTarget":$('#results-tires'), //DIV TARGET where the data detail (subject of filtering) wil be displayed
                         "dataRenderingItemTemplate":ich['tireTemplate'], //Template for each rendered item
+                        "sortFunction":function(a,b){
+                            return Number(a.price)-Number(b.price);
+                        },
                         "filters":[ {
                             filterId:"nomeMarca",
                             filterType:'histogram',
