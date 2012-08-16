@@ -79,6 +79,24 @@ public class Admin extends EnhancedController {
         return ok(result);
     }
 
+    public static Result revokeAccount(String email) {
+        User u = Ebean.find(User.class).where()
+                .eq("email", email)
+                .eq("active", true).findUnique();
+        boolean ok = false;
+        ObjectNode result = Json.newObject();
+        try{
+            u.delete();
+            ok = true;
+        } catch(Exception e){
+            ok = false;
+            result.put("message", "Erro no sistema no momento de apagar o registo. P.f. tente novamente e caso se mantenha, procure o seu administrador do sistema");
+            Logger.error(e.getMessage());
+        }
+        result.put("status", ok);
+        return ok(result);
+    }
+
 
     public static Result users() {
         if (request().getHeader(CONTENT_TYPE) == null || !request().getHeader(CONTENT_TYPE).equalsIgnoreCase("application/json"))
@@ -97,6 +115,8 @@ public class Admin extends EnhancedController {
                 companyName = u.company;
                 company.put("company", companyName);
                 company.put("street", u.street);
+                company.put("postalCode", u.postalCode);
+                company.put("city", u.city);
                 children = company.putArray("_children");
             }
             user = Json.newObject();
@@ -124,6 +144,8 @@ public class Admin extends EnhancedController {
             ArrayNode children = user.putArray("_children");
             ObjectNode child = Json.newObject();
             child.put("address", u.street);
+            child.put("postalCode", u.postalCode);
+            child.put("city", u.city);
             child.put("phoneNumber", u.phoneNumber);
             children.add(child);
 

@@ -25,3 +25,18 @@ legend {
     line-height: 18px;
     font-size: 16px;
 }
+
+.admin-content {
+    padding-left: 30px;
+    line-height: 40px;
+}
+.admin-members-date {
+    color: #999;
+    font-size: small;
+}
+
+.admin-sortby {
+    text-align: right;
+    margin-top: 2px;
+    padding-top: 8px;
+}

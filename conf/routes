@@ -26,6 +26,7 @@ POST    /tire/search                controllers.Dashboard.search()
 GET     /admin/index                controllers.Admin.index()
 GET     /admin/approve-account      controllers.Admin.approveAccount(email)
 GET     /admin/decline-account      controllers.Admin.declineAccount(email)
+GET     /admin/revoke-account       controllers.Admin.revokeAccount(email)
 GET		/admin/users				controllers.Admin.users()
 GET		/admin/user-requests		controllers.Admin.userRequests()
 

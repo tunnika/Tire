@@ -10,11 +10,18 @@
             "toggle_collapse": "collapse",
             "toggle_expand": "expand",
             "toggle_selector": "i",
-            "row_selector": "[ui-data=row]",
+            "row_selector": "[ui-id=row]",
             "template_helpers": {},
             "onDataLengthChange": function(){},
             "onBeforeSort": function(){},
-            "onAfterSort": function(){}
+            "onAfterSort": function(){},
+            // want to enable a style on clicked sort and disable
+            // on the others? these are the event's to hook to
+            "onSortClickElement": function(){},
+            "onSortClickForEachSortNotClicked": function(){},
+
+            onBeforeFilter: function(){},
+            onAfterFilter: function(){}
         };
         // widget state
         // ============
@@ -27,6 +34,11 @@
         var data = config.data;
         // keep map between the generated rows and "original" data
         var map = {};
+        // is any sort applied
+        var sortOn = undefined;
+        // var transient data
+        var transientData = undefined;
+
 
         // private methods
         // ===============
@@ -64,7 +76,7 @@
                 map[uiid].data = data[i];
                 map[uiid].$dom = $row;
                 if (data[i]._children && data[i]._children.length > 0) {
-                    $row.find('i').click(function ($row) {
+                    $row.find(config.toggle_selector).click(function ($row) {
                         return function () {
                             $row.find(config.toggle_selector).toggleClass(config.toggle_collapse).toggleClass(config.toggle_expand);
                             $row.find(config.row_selector).toggle();
@@ -135,7 +147,7 @@
          * @param data
          */
         this.refresh = function(data){
-            config.$container.find('[ui-data=content]').remove();
+            config.$container.find('[ui-id=content]').remove();
             // hack - avoid redraw header
             draw(data || self.data(), true);
             if(hasBehaviour(config)){
@@ -185,7 +197,11 @@
             // add actual behaviour
             $elem.click(function () {
                 var $this = $(this);
-                var data = config.onBeforeSort.apply(self,[$this]);
+                // save state
+                sortOn = $this;
+
+                var data = config.onBeforeSort.apply(self,[$this, sorts]);
+                transientData = data;
                 if(!data) data = self.data();
                 // sort
                 data.sort(sortFunction);
@@ -199,6 +215,8 @@
                     $this.find('i').removeClass('icon-arrow-down').addClass('icon-arrow-up');
                 }
                 self.refresh(data);
+                //trigger onElement event
+                config.onSortClickElement.apply(self, [$this]);
                 var selector = 'i';
                 for (var i = 0, ilen = sorts.length; i < ilen; i++) {
                     if (sorts[i] !== $elem) {
@@ -206,9 +224,11 @@
                             selector = iconElemSelector;
                         }
                         sorts[i].find(selector).removeClass('icon-arrow-up').removeClass('icon-arrow-down');
+                        //trigger onOtherElements event
+                        config.onSortClickForEachSortNotClicked.apply(self,[sorts[i]]);
                     }
                 }
-                config.onAfterSort.apply(self,[$this]);
+                config.onAfterSort.apply(self,[$this, sorts]);
             });
         };
 
@@ -217,10 +237,12 @@
          * TODO: escape value!
          * @param properties {Array|String}  array or string with the property name to be used as filter
          * @param value      {String}        the value to be used as the sort value
+         * @param data       {Array}         use custom list instead of self.data()
          */
-        this.filter = function (properties, value) {
+        this.filter = function (properties, value, data) {
+            data = data || self.data();
             if(!value || value.length==0){
-                self.refresh(self.data());
+                self.refresh(data);
                 return;
             }
             if (!$.isArray(properties)) {
@@ -282,14 +304,23 @@
                     }
                 }
             };
+            config.onBeforeFilter.apply(self,[]);
             var results = [];
-            traverse(self.data(), 1, results);
-
+            traverse(data, 1, results);
             self.refresh(results);
+            config.onAfterFilter.apply(self,[]);
         };
 
         this.setTemplate = function(fn){
             config.template = fn;
+        };
+
+        this.$sortOn = function(){
+            return sortOn;
+        };
+
+        this.getTransientData = function(){
+            return transientData;
         };
 
 

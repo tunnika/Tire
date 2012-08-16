@@ -15,36 +15,21 @@
     </div>
 </script>
 
-<script id="box-widget" type="text/html">
-    <div class="container" id="{{=id}}-container">
-        <div class="row">
-            <div class="span2"><i class="toggle collapse" id="{{=id}}-toggle"></i><!-- Toggle --> </div>
-            <div class="span11" id="{{=id}}-header"> <!-- header text --></div>
-        </div>
-        <!-- body -->
-    </div>
-</script>
-
-<script id="member-tab" type="text/html">
-    <div class="container">
-        <div class="row">
-            <div class="span12"><h1>{{title}}</h1></div>
-        </div>
-    </div>
-</script>
-
-
-
-
 
 
 <script id="members-header" type="text/html">
     <div class="container" ui-id="header">
         <div class="row">
-            <div class="span4"><h3>Aderentes <small>(<span ui-id="number-of-requests">&nbsp;</span>)</small></h3></div>
-            <div class="span1">&nbsp;</div>
-            <div class="span2"><a href="#" ui-id="sort-by-name"><i class=""></i>Ordenar por nome</a></div>
-            <div class="span2"><a href="#" ui-id="sort-by-company"><i class=""></i>Ordenar por empresa</a></div>
+            <div class="span4"><h3>{{header}} <small>(<span ui-id="totals">&nbsp;</span>)</small></h3></div>
+            <div class="span2 admin-sortby">Ordenar por:</div>
+            <div class="span3">
+                <ul class="nav nav-pills">
+                    <li class="">
+                        <a href="#" ui-id="sort-by-name"><i class=""></i>Nome</a>
+                    </li>
+                    <li><a href="#" ui-id="sort-by-company"><i class=""></i>Empresa</a></li>
+                </ul>
+            </div>
             <div class="span3">
                 <div class="form-search">
                     <input type="text" class="search-query span3" placeholder="{{search_hint}}" ui-id="find"><div class="icon-search"></div></input>
@@ -54,83 +39,22 @@
     </div>
 </script>
 
-<script id="members-garage" type="text/html">
-    <div class="container" style="margin-left:15px" ui-data="content">
-        <div class="row">
-            <div class="span2">
-                <div><i class="toggle collapse"></i><strong style="padding-left:5px">{{ company }}</strong></div>
-            </div>
-            <div class="span4">{{street}}</div>
-            <div class="span1">{{phoneNumber}}&nbsp;</div>
-            <div class="span1">-10%</div>
-            <div class="span4"><a href="#">Revogar todos</a></div>
-        </div>
-    </div>
-</script>
-
-<script id="members-user" type="text/html">
-    <div class="container admin-members-user-row" ui-data="row">
-        <div class="row">
-            <div class="span2 pull-right" style="text-indent:25px">{{name}}</div>
-            <div class="span2">{{email}}</div>
-            <div class="span2">{{active_timeago}}</div>
-            <div class="span1">{{phoneNumber}}</div>
-            <div class="span1">&nbsp;</div>
-            <div class="span4">
-                <a href="#">Revogar</a>
-                <a href="#" style="padding-left:3px">Reset palavra chave</a>
-            </div>
-        </div>
-    </div>
-</script>
-
-<script id="members-sorted-by-name" type="text/html">
-    <div class="container admin-members-user-row" ui-data="content">
-        <div class="row">
-            <div class="span3 pull-right" style="text-indent:25px"><strong>{{name}}</strong> ({{company}}) </div>
-            <div class="span2">{{email}}</div>
-            <div class="span2">{{active_timeago}}</div>
-            <div class="span1">{{phoneNumber}}</div>
-            <div class="span1">&nbsp;</div>
-            <div class="span3">
-                <a href="#">Revogar</a>
-                <a href="#" style="padding-left:3px">Reset palavra chave</a>
-            </div>
-        </div>
-    </div>
-</script>
 
 
 
 <!-- User Requests -->
 <!------------------->
-<script id="requests-header" type="text/html">
-    <div class="container">
-        <div class="row" style="padding-bottom:5px" ui-id="header">
-            <div class="span4"><h3>Pedidos de Adesão <small>(<span ui-id="number-of-requests">&nbsp;</span>)</small></h3></div>
-            <div class="span1">&nbsp;</div>
-            <div class="span2"><a href="#" ui-id="sort-by-name"><i class=""></i>Ordenar por nome</a></div>
-            <div class="span2"><a href="#" ui-id="sort-by-company"><i class=""></i>Ordenar por empresa</a></div>
-            <div class="span3">
-                <div class="form-search">
-                    <input type="text" class="search-query span3" placeholder="{{search_hint}}" ui-id="find"><div class="icon-search"></div></input>
-                </div>
-            </div>
-        </div>
-    </div>
-</script>
-
 <script id="request-garage" type="text/html">
-    <div class="container" style="margin-left:15px; line-height:30px" ui-data="content">
+    <div class="container admin-content"  ui-id="content">
         <div class="row">
             <div class="span2">
-                <div><i class="toggle expand"></i><span style="padding-left:5px">{{ company }}</span></div>
+                <div><i class="toggle expand" ui-id="expand-collapse"></i><span style="padding-left:5px">{{ company }}</span></div>
             </div>
             <div class="span2"><strong>{{name}}</strong></div>
             <div class="span2">{{email}}</div>
-            <div class="span2">{{requested_timeago}}</div>
+            <div class="span2 admin-members-date">{{requested_timeago}}</div>
             <div class="span4">
-                <button class="btn" ui-id="{{_id}}">Aprovar</button>
+                <button class="btn" ui-data="{{_id}}">Aprovar</button>
                 <a href="#" ui-data="{{_id}}" ui-id="reject">Declinar</a>
             </div>
         </div>
@@ -138,10 +62,60 @@
 </script>
 
 <script id="request-contacts" type="text/html">
-    <div class="container hide" style="padding-top:1px" ui-data="row">
+    <div class="container hide" style="padding-top:1px" ui-id="row">
         <div class="row">
-            <div class="span6" style="text-indent:25px">{{address}}</div>
-            <div class="span2">{{phoneNumber}}</div>
+            <div class="span6" style="text-indent:25px"><i class="x-icon-direction"></i> {{address}}, {{postalCode}} - {{city}}</div>
+            <div class="span2"><i class="x-icon-iphone"></i> {{phoneNumber}}</div>
+        </div>
+    </div>
+</script>
+
+
+
+
+<!-- Active users -->
+<!------------------->
+<script id="members-garage" type="text/html">
+    <div class="container admin-content"  ui-id="content">
+        <div class="row">
+            <div class="span2">
+                <div><i class="toggle expand" ui-id="expand-collapse"></i><strong style="padding-left:5px">{{ company }}</strong></div>
+            </div>
+            <div class="span4 "><i class="x-icon-direction"></i> {{street}}, {{postalCode}} - {{city}}</div>
+            <div class="span1">{{phoneNumber}}&nbsp;</div>
+            <div class="span1"><strong><i class="icon-tag"></i> -10%</strong></div>
+            <div class="span4"><a href="#">Revogar todos</a></div>
+        </div>
+    </div>
+</script>
+
+<script id="members-user" type="text/html">
+    <div class="container hide" ui-id="row">
+        <div class="row">
+            <div class="span2 pull-right" style="text-indent:25px">{{name}}</div>
+            <div class="span2">{{email}}</div>
+            <div class="span2 admin-members-date">{{active_timeago}}</div>
+            <div class="span2"><i class="x-icon-iphone"></i> {{phoneNumber}}</div>
+            <div class="span4">
+                <a href="#" ui-id="revoke-member-access" ui-data="{{_id}}">Revogar</a>
+                <a href="#" ui-id="reset-password" ui-data="{{_id}}" style="padding-left:3px">Reset palavra chave</a>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="members-sorted-by-name" type="text/html">
+    <div class="container admin-content" ui-id="content">
+        <div class="row">
+            <div class="span3 pull-right" style="text-indent:25px"><strong>{{name}}</strong> ({{company}}) </div>
+            <div class="span2">{{email}}</div>
+            <div class="span2 admin-members-date">{{active_timeago}}</div>
+            <div class="span1">{{phoneNumber}}</div>
+            <div class="span1">&nbsp;</div>
+            <div class="span3">
+                <a href="#">Revogar</a>
+                <a href="#" style="padding-left:3px">Reset palavra chave</a>
+            </div>
         </div>
     </div>
 </script>
