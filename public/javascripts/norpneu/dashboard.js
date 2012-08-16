@@ -42,22 +42,26 @@
                         "$filterDOMTarget":$('#filterContainer'), //DIV TARGET where the Filters will be placed
                         "$dataDOMTarget":$('#results-tires'), //DIV TARGET where the data detail (subject of filtering) wil be displayed
                         "dataRenderingItemTemplate":ich['tireTemplate'], //Template for each rendered item
+                        "sortFunction":function(a,b){
+                            return Number(a.price)-Number(b.price);
+                        },
                         "filters":[ {
                             filterId:"nomeMarca",
                             filterType:'histogram',
                             uniqueSelection:true, //unique will be rendered as radios, non-unique checkboxes
                             title:"Marca",
                             matchProperty:"brand.name",
-                            /*compareFunction:function(object,value){
-                                if(object.brand.name == value)
-                                    return true;
-                                return false;
-                                },*/
-                            // values:[], // If values are provided it won't calculate unique values and it's count
-                            // valueFormatter:undefined, //function(value)
-                            // valueDataFormatter:undefined, //function(objectFRomData)
                             includeAllOption:true //Will provide a All option as first option (if non-unique, will deselect all others)
-                             }],
+                             },
+                            {
+                                filterId:"price",
+                                filterType:'ranges',
+                                uniqueSelection:true, //unique will be rendered as radios, non-unique checkboxes
+                                title:"Preço",
+                                matchProperty:"price",
+                                step:20,
+                                includeAllOption:true //Will provide a All option as first option (if non-unique, will deselect all others)
+                            }],
                         "data":allTires
                         });
 
