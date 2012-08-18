@@ -176,10 +176,6 @@ public class Admin extends EnhancedController {
             data.add(user);
         }
 
-        for (User u: User.findAll()){
-            System.out.println(u);
-        }
-
         return ok(result);
     }
 
