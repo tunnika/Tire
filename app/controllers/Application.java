@@ -19,9 +19,12 @@ import views.html.register;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 
 
 public class Application extends EnhancedController {
+    private static final String INIT_PASSWORD = "init";
+    private static final String RESET_PASSWORD = "reset";
 
     public static Result login() {
         return ok(login.render(form(Login.class)));
@@ -84,7 +87,20 @@ public class Application extends EnhancedController {
         if(user==null)
             flash("error", "Registo não encontrado");
 
-        return ok(changepasswordonregister.render(user.email, form(ChangePassword.class)));
+        return ok(changepasswordonregister.render(email, hash, INIT_PASSWORD, form(ChangePassword.class)));
+    }
+
+    public static Result resetPasswordForward(String email, String token){
+        User user = User.find.where()
+                .eq("email", email)
+                .eq("resetToken", token)
+                .ge("resetTokenExpirationDate", new Timestamp(System.currentTimeMillis()))
+               .findUnique();
+
+        if(user==null)
+            flash("error", "Registo não encontrado");
+
+        return ok(changepasswordonregister.render(email, token, RESET_PASSWORD, form(ChangePassword.class)));
     }
 
     public static Result changePasswordAction(){
@@ -92,27 +108,48 @@ public class Application extends EnhancedController {
         ChangePassword changePasswordModel = null;
         try {
             changePasswordModel = safePullModel(form);
-            if(changePasswordModel.email!=null){
-                User user = User.find.where().eq("email", changePasswordModel.email).findUnique();
+            if (changePasswordModel.email != null) {
                 if(!changePasswordModel.password.equals(changePasswordModel.confirmPassword)){
                     addGlobalError(form, "A palavra passe e confirmação não são iguais");
-                    return badRequest(changepasswordonregister.render(changePasswordModel.email,form));
+                    return badRequest(changepasswordonregister.render(changePasswordModel.email, changePasswordModel.token, changePasswordModel.action, form));
+                }
+
+                User user;
+                if (changePasswordModel.action.equals(INIT_PASSWORD)) {
+                    user = User.find.where()
+                            .eq("email", changePasswordModel.email)
+                            .eq("password", changePasswordModel.token)
+                            .findUnique();
+                } else {
+                    user = User.find.where()
+                            .eq("email", changePasswordModel.email)
+                            .eq("resetToken", changePasswordModel.token)
+                            .gt("resetTokenExpirationDate",  new Timestamp(System.currentTimeMillis()))
+                            .findUnique();
+                }
+
+                if (user == null) {
+                    addGlobalError(form, "Utilizador não foi encontrado ou passou demasiado tempo desde o envio do email até à tentativa de alteração. " +
+                            "P.f. requira nova recuperação de palavra passe");
+                    return badRequest(changepasswordonregister.render(changePasswordModel.email,changePasswordModel.token, changePasswordModel.action,form));
                 }
                 user.password = User.obfuscatePassword(changePasswordModel.password);
+                user.resetToken = null;
+                user.resetTokenExpirationDate = null;
                 //TODO: handle persistence exceptions - should be done in enhanced controller
                 user.update();
             }
         } catch (FormValidationException e) {
             //TODO: how can I get the email if form is not valid?!?!
-            return badRequest(changepasswordonregister.render("",form));
+            return badRequest(changepasswordonregister.render("",changePasswordModel.token, changePasswordModel.action,form));
         } catch (NoSuchAlgorithmException e) {
             Logger.error("Error in  obfuscating password.", e);
             addGlobalError(form, "Erro de incriptação da password. Por favor tente mais tarde");
-            return badRequest(changepasswordonregister.render(changePasswordModel.email,form));
+            return badRequest(changepasswordonregister.render(changePasswordModel.email,changePasswordModel.token, changePasswordModel.action,form));
         } catch (UnsupportedEncodingException e) {
             Logger.error("Error in  obfuscating password.", e);
             addGlobalError(form, "Erro de incriptação da password. Por favor tente mais tarde");
-            return badRequest(changepasswordonregister.render(changePasswordModel.email,form));
+            return badRequest(changepasswordonregister.render(changePasswordModel.email,changePasswordModel.token, changePasswordModel.action,form));
         }
         flash("success", "Palavra passe alterada com sucesso. Por favor efectue agora o seu login");
         return redirect(routes.Application.login());

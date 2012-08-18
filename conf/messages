@@ -30,3 +30,11 @@ registration.approved.email.body = A sua conta foi autorizada com sucesso. Cliqu
 #  dashboard form     #
 # --------------------#
 search.placeholder = ex: 1856014 ou <60eur ou goodyear 185 < 100eur
+
+
+# ----------------------------#
+#  members administration     #
+# ----------------------------#
+
+admin.members.password_reset.email.subject = Recuperação da Palavra Passe da Norpneu
+admin.members.password_reset.email.body = Estimado cliente. <br/> O seu pedido de recuperação da palavra passe foi registado com sucesso. Clique <a href="http://{0}:9000/register/reset-password?email={1}&token={2}">aqui</a> para proceder à definição da nova palavra passe.

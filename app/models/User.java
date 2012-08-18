@@ -86,6 +86,10 @@ public class User extends Model {
 
     public String comments;
 
+    public String resetToken;
+    public Timestamp resetTokenExpirationDate;
+
+
 //-- Queries
 
     public static Model.Finder<String, User> find = new Model.Finder<String, User>(String.class, User.class);
@@ -124,8 +128,28 @@ public class User extends Model {
 
     // --
 
+
+    @Override
     public String toString() {
-        return "User(" + email + ")";
+        return "User{" +
+                "email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", company='" + company + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", street='" + street + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", city='" + city + '\'' +
+                ", gpsLatPos='" + gpsLatPos + '\'' +
+                ", password='" + password + '\'' +
+                ", active=" + active +
+                ", powerUser=" + powerUser +
+                ", registryDate=" + registryDate +
+                ", activeDate=" + activeDate +
+                ", lastStatusDate=" + lastStatusDate +
+                ", comments='" + comments + '\'' +
+                ", resetToken='" + resetToken + '\'' +
+                ", resetTokenExpirationDate=" + resetTokenExpirationDate +
+                '}';
     }
 
     public static String obfuscatePassword(String password) throws NoSuchAlgorithmException,
@@ -134,6 +158,7 @@ public class User extends Model {
                 MessageDigest.getInstance(GlobalVars.MD5).digest(password.getBytes(GlobalVars.UTF_8))
                 , GlobalVars.UTF_8);
     }
+
 
 
 }

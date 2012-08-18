@@ -62,11 +62,13 @@
         var traverse = function (data, level, $parent, map) {
             var template
                 , $row
-                , uiid;
+                , uiid
+                , count = arguments[4] || 0;
 
             template = config.template(level);
             for (var i = 0, ilen = data.length; i < ilen; i++) {
-                uiid = level + '-' + i;
+                uiid = level + '-' + count;
+                count++;
                 data[i]['_id'] = uiid;
                 data[i] = $.extend(data[i], config.template_helpers());
                 $row = template(data[i]);
@@ -82,13 +84,14 @@
                             $row.find(config.row_selector).toggle();
                         }
                     }($row));
-                    traverse(data[i]._children, level+1, $row, map);
+                    traverse(data[i]._children, level+1, $row, map, count);
                 }
             }
             return $row;
         };
-        var triggerOnDataLengthChange = function(){
-            config.onDataLengthChange.apply(self, [self.data().length]);
+        var triggerOnDataLengthChange = function(data){
+            data = data || self.data();
+            config.onDataLengthChange.apply(self, [data.length]);
         };
 
         /**
@@ -147,11 +150,15 @@
          * @param data
          */
         this.refresh = function(data){
+            data = data || self.data();
             config.$container.find('[ui-id=content]').remove();
             // hack - avoid redraw header
-            draw(data || self.data(), true);
+            draw(data, true);
             if(hasBehaviour(config)){
                 config.behaviour.apply(self, [data, config.$container, true]);
+            }
+            if (data.length != self.data().length) {
+                triggerOnDataLengthChange(data);
             }
         };
 

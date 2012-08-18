@@ -53,8 +53,10 @@
             <div class="span2"><strong>{{name}}</strong></div>
             <div class="span2">{{email}}</div>
             <div class="span2 admin-members-date">{{requested_timeago}}</div>
-            <div class="span4">
+            <div class="span1">
                 <button class="btn" ui-data="{{_id}}">Aprovar</button>
+            </div>
+            <div class="span3">
                 <a href="#" ui-data="{{_id}}" ui-id="reject">Declinar</a>
             </div>
         </div>
@@ -79,24 +81,26 @@
     <div class="container admin-content"  ui-id="content">
         <div class="row">
             <div class="span2">
-                <div><i class="toggle expand" ui-id="expand-collapse"></i><strong style="padding-left:5px">{{ company }}</strong></div>
+                <div><i class="toggle collapse" ui-id="expand-collapse"></i><strong style="padding-left:5px">{{ company }}</strong></div>
             </div>
             <div class="span4 "><i class="x-icon-direction"></i> {{street}}, {{postalCode}} - {{city}}</div>
             <div class="span1">{{phoneNumber}}&nbsp;</div>
             <div class="span1"><strong><i class="icon-tag"></i> -10%</strong></div>
-            <div class="span4"><a href="#">Revogar todos</a></div>
+            <div class="span1">&nbsp;</div>
+            <div class="span3"><a href="#" ui-id="revoke-company-members" ui-data="{{_id}}">Revogar todos</a></div>
         </div>
     </div>
 </script>
 
 <script id="members-user" type="text/html">
-    <div class="container hide" ui-id="row">
+    <div class="container" ui-id="row">
         <div class="row">
             <div class="span2 pull-right" style="text-indent:25px">{{name}}</div>
             <div class="span2">{{email}}</div>
             <div class="span2 admin-members-date">{{active_timeago}}</div>
             <div class="span2"><i class="x-icon-iphone"></i> {{phoneNumber}}</div>
-            <div class="span4">
+            <div class="span1">&nbsp;</div>
+            <div class="span3">
                 <a href="#" ui-id="revoke-member-access" ui-data="{{_id}}">Revogar</a>
                 <a href="#" ui-id="reset-password" ui-data="{{_id}}" style="padding-left:3px">Reset palavra chave</a>
             </div>

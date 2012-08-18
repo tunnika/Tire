@@ -18,6 +18,7 @@ GET		/register					controllers.Application.registerForward()
 POST	/register					controllers.Application.registerAction()
 GET     /register/change-password   controllers.Application.changePasswordForward(email, hash)
 POST    /register/change-password   controllers.Application.changePasswordAction()
+GET     /register/reset-password    controllers.Application.resetPasswordForward(email, token)
 
 # Dashboard
 POST    /tire/search                controllers.Dashboard.search()
@@ -26,7 +27,8 @@ POST    /tire/search                controllers.Dashboard.search()
 GET     /admin/index                controllers.Admin.index()
 GET     /admin/approve-account      controllers.Admin.approveAccount(email)
 GET     /admin/decline-account      controllers.Admin.declineAccount(email)
-GET     /admin/revoke-account       controllers.Admin.revokeAccount(email)
+POST    /admin/revoke-account       controllers.Admin.revokeAccount()
+GET     /admin/reset-password       controllers.Admin.resetPassword(email)
 GET		/admin/users				controllers.Admin.users()
 GET		/admin/user-requests		controllers.Admin.userRequests()
 
